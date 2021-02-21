@@ -1,0 +1,119 @@
+<mat-vertical-stepper [linear]="true" #stepper>
+  <mat-step [stepControl]="companyForm" [editable]="false">
+    <form [formGroup]="companyForm">
+      <ng-template matStepLabel>Primero, ¡Vamos a crear una compañía!</ng-template>
+
+      <h5>Si ya tienes una compañía y la quieres usar en este presupuesto, puedes seleccionarla</h5>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Tus compañías</mat-label>
+        <input
+          type="text"
+          placeholder="Pick one"
+          aria-label="Number"
+          matInput
+          formControlName="company"
+          [matAutocomplete]="auto"
+        >
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="onSelectCompany()"
+          (closed)="onSelectCompany()"
+        >
+          <mat-option *ngFor="let company of filteredCompanies" [value]="company.name">
+            {{ company.name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="w-50 pr-3" appearance="outline">
+        <mat-label>Logo</mat-label>
+        <input
+          matInput
+          placeholder="Last name, First name"
+          formControlName="logoUrl"
+        >
+      </mat-form-field>
+
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input
+          matInput
+          placeholder="ElctroCopu"
+          formControlName="name"
+          required
+        >
+
+        <mat-error>No puede haber una compañía sin nombre</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-50 pr-3" appearance="outline">
+        <mat-label>Eslogan</mat-label>
+        <input
+          matInput
+          appGoogleMapsSearch
+          (selectAddress)="printAddress($event)"
+          placeholder="Por que tirar, cuando puedes reparar!"
+          formControlName="slogan"
+          required
+        >
+
+        <mat-error>
+          Recuerda que el eslogan es muy importante para que tu compañía sea recordada,
+          por eso no puede haber una compañía sin eslogan
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          placeholder="Electronica, reparación de computadoras y servicios técnicos"
+          formControlName="title"
+        >
+      </mat-form-field>
+
+      <app-alert
+        *ngIf="companyMessageError"
+        type="error"
+        [message]="companyMessageError"
+      ></app-alert>
+
+      <div class="text-right">
+        <button
+          mat-stroked-button
+          type="button"
+          color="accent"
+          (click)="companySave(stepper)"
+        >
+          Listo
+        </button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Ahora, ¡Vamos a registrar un cliente!</ng-template>
+
+      <mat-form-field>
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+               required>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Por ultimo, ¡Vamos a dar los ultimos detalles!</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-vertical-stepper>

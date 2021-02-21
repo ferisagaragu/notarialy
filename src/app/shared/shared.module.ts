@@ -1,12 +1,42 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { AlertComponent } from './alert/alert.component';
+import { GoogleMapsSearchDirective } from '../core/directives/google-maps-search.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AlertComponent,
+    GoogleMapsSearchDirective
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSnackBarModule
+  ],
+  exports: [
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatSnackBarModule,
+    AlertComponent,
+    GoogleMapsSearchDirective
   ]
 })
 export class SharedModule { }
