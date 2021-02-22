@@ -51,8 +51,6 @@
         <mat-label>Eslogan</mat-label>
         <input
           matInput
-          appGoogleMapsSearch
-          (selectAddress)="printAddress($event)"
           placeholder="Por que tirar, cuando puedes reparar!"
           formControlName="slogan"
           required
@@ -82,7 +80,6 @@
       <div class="text-right">
         <button
           mat-stroked-button
-          type="button"
           color="accent"
           (click)="companySave(stepper)"
         >
@@ -92,15 +89,30 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="secondFormGroup">
+  <mat-step [stepControl]="secondFormGroup" [editable]="false">
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Ahora, ¡Vamos a registrar un cliente!</ng-template>
 
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Dirección</mat-label>
+        <input
+          matInput
+          appGoogleMapsSearch
+          required
+          formControlName="secondCtrl"
+          placeholder="Valle de las Petunias 19, Buenavista, Jal., México"
+          (selectAddress)="printAddress($event)"
+        >
       </mat-form-field>
+
+      <div
+        appGoogleMap
+        [lat]="lat"
+        [lng]="lng"
+        (selectAddress)="setAddressText($event)"
+      >
+      </div>
+
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>

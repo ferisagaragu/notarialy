@@ -11,11 +11,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AlertComponent } from './alert/alert.component';
 import { GoogleMapsSearchDirective } from '../core/directives/google-maps-search.directive';
+import { GoogleMapDirective } from '../core/directives/google-map.directive';
 
 @NgModule({
   declarations: [
     AlertComponent,
-    GoogleMapsSearchDirective
+    GoogleMapsSearchDirective,
+    GoogleMapDirective
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,8 @@ import { GoogleMapsSearchDirective } from '../core/directives/google-maps-search
     MatButtonModule,
     MatSnackBarModule,
     AlertComponent,
-    GoogleMapsSearchDirective
+    GoogleMapsSearchDirective,
+    GoogleMapDirective
   ]
 })
 export class SharedModule { }

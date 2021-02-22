@@ -1,4 +1,5 @@
 import { AfterViewInit, Directive, ElementRef, EventEmitter, Output } from '@angular/core';
+import { AddressModel } from '../models/address.model';
 declare var google: any;
 
 @Directive({
@@ -6,7 +7,7 @@ declare var google: any;
 })
 export class GoogleMapsSearchDirective implements AfterViewInit {
 
-  @Output() selectAddress: EventEmitter<any>;
+  @Output() selectAddress: EventEmitter<AddressModel>;
 
   constructor(private elementRef: ElementRef) {
     this.selectAddress = new EventEmitter<any>();
@@ -27,8 +28,7 @@ export class GoogleMapsSearchDirective implements AfterViewInit {
 
     google.maps.event.addListener(autocomplete, 'place_changed', () => {
       const place = autocomplete.getPlace();
-      console.log(autocomplete.getPlace());
-      this.selectAddress.emit(autocomplete.getPlace());
+      this.selectAddress.emit(new AddressModel(place));
     });
   }
 

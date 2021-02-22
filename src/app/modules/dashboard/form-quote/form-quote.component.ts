@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from '../../../core/http/company.service';
 import { CompanyModel } from '../../../core/models/company.model';
 import { MatVerticalStepper } from '@angular/material/stepper';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { AddressModel } from '../../../core/models/address.model';
 
 @Component({
   selector: 'app-form-quote',
@@ -19,6 +21,8 @@ export class FormQuoteComponent implements OnInit {
   companyMessageError: string;
 
   secondFormGroup: FormGroup;
+  lat: number = 20.45964317435236;
+  lng: number = -103.5070986126892;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -118,7 +122,14 @@ export class FormQuoteComponent implements OnInit {
     });
   }
 
-  printAddress($event: any) {
-    console.log($event)
+  printAddress($event: AddressModel) {
+    this.lat = $event.lat;
+    this.lng = $event.lng;
+    this.secondFormGroup.get('secondCtrl').setValue($event.formatted)
   }
+
+  setAddressText($event: AddressModel) {
+    this.secondFormGroup.get('secondCtrl').setValue($event.formatted)
+  }
+
 }
