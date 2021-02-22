@@ -23,6 +23,7 @@ export class FormQuoteComponent implements OnInit {
   secondFormGroup: FormGroup;
   lat: number = 20.45964317435236;
   lng: number = -103.5070986126892;
+  validAddress: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -131,5 +132,20 @@ export class FormQuoteComponent implements OnInit {
   setAddressText($event: AddressModel) {
     this.secondFormGroup.get('secondCtrl').setValue($event.formatted)
   }
+
+  validateAddress(event: boolean) {
+    this.validAddress = event;
+  }
+
+  clientSubmit(stepper: MatVerticalStepper) {
+
+    if (!this.validAddress) {
+      this.secondFormGroup.get('secondCtrl').setErrors({incorrect: true});
+      return;
+    }
+
+    stepper.next();
+  }
+
 
 }

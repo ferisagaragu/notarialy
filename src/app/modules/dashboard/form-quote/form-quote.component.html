@@ -90,10 +90,10 @@
   </mat-step>
 
   <mat-step [stepControl]="secondFormGroup" [editable]="false">
-    <form [formGroup]="secondFormGroup">
+    <form [formGroup]="secondFormGroup" (ngSubmit)="clientSubmit(stepper)">
       <ng-template matStepLabel>Ahora, ¡Vamos a registrar un cliente!</ng-template>
 
-      <mat-form-field class="w-50" appearance="outline">
+      <mat-form-field class="w-50 mb-3" appearance="outline">
         <mat-label>Dirección</mat-label>
         <input
           matInput
@@ -102,7 +102,13 @@
           formControlName="secondCtrl"
           placeholder="Valle de las Petunias 19, Buenavista, Jal., México"
           (selectAddress)="printAddress($event)"
+          (validAddress)="validateAddress($event)"
         >
+
+        <mat-error>
+          Recuerda que tener una dirección completa hace la diferencia al buscar un lugar,
+          por eso debes seleccionar una dirección valida en el buscador o en el mapa
+        </mat-error>
       </mat-form-field>
 
       <div
@@ -110,12 +116,13 @@
         [lat]="lat"
         [lng]="lng"
         (selectAddress)="setAddressText($event)"
+        (validAddress)="validateAddress($event)"
       >
       </div>
 
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+        <button mat-button>Next</button>
       </div>
     </form>
   </mat-step>

@@ -12,6 +12,7 @@ export class GoogleMapDirective implements AfterViewInit, OnChanges {
   @Input() lng: number;
 
   @Output() selectAddress: EventEmitter<AddressModel>;
+  @Output() validAddress: EventEmitter<boolean>;
 
   private marker: any;
   private map: any;
@@ -21,6 +22,7 @@ export class GoogleMapDirective implements AfterViewInit, OnChanges {
     private googleMapsService: GoogleMapsService
   ) {
     this.selectAddress = new EventEmitter<any>();
+    this.validAddress = new EventEmitter<boolean>();
   }
 
   ngAfterViewInit() {
@@ -81,6 +83,7 @@ export class GoogleMapDirective implements AfterViewInit, OnChanges {
     this.googleMapsService.findAddressByLatLng(lat, lng).subscribe(
       resp => {
         this.selectAddress.emit(new AddressModel(resp.results[0], true));
+        this.validAddress.emit(true);
       }, error => { }
     );
   }
