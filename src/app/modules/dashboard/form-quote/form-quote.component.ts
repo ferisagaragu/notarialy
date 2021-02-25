@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-form-quote',
@@ -21,7 +22,8 @@ export class FormQuoteComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      secondCtrl: ['', Validators.required]
+      workforce: [''],
+      createDate: [moment()]
     });
   }
 
