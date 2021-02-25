@@ -12,20 +12,19 @@ export class AddressModel {
   formatted: string;
 
   constructor(place: any, map: boolean = false) {
-    console.log(place)
     let addressOut: any = { };
 
     if (map){
       addressOut.lat = place.geometry.location.lat;
       addressOut.lng = place.geometry.location.lng;
     } else {
-      addressOut.lat = place.geometry.location.lat();
-      addressOut.lng = place.geometry.location.lng();
+      addressOut.lat = place.geometry?.location.lat();
+      addressOut.lng = place.geometry?.location.lng();
     }
 
-    addressOut.formatted = place.formatted_address;
+    addressOut.formatted = place?.formatted_address;
 
-    place.address_components.forEach(address => {
+    place.address_components?.forEach(address => {
       if (address.types[0] === 'street_number') {
         addressOut.number = address.long_name;
       }

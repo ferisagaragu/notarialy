@@ -17,3 +17,24 @@ $my-theme: mat-light-theme($my-primary, $my-accent);
   font-family: 'HachiMaruPop', sans-serif;
   color: #2196F3;
 }
+
+.mat-icon.material-icons.ng-star-inserted {
+  background: green !important;
+  font-weight: bold;
+  border-radius: 10px;
+  width: 23px;
+  height: 23px;
+  padding: 3px;
+}
+
+.mat-step-header {
+  pointer-events: none !important;
+}
+
+.mdi-26px {
+  font-size: 26px !important;
+}
+
+.mdi-input {
+  color: #757575 !important;
+}

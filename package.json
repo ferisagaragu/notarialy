@@ -23,6 +23,7 @@
     "@angular/router": "~10.2.0",
     "@mdi/font": "^5.9.55",
     "bootstrap": "^4.6.0",
+    "inputmask": "^5.0.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

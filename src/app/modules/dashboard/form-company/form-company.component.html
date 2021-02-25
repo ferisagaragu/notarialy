@@ -1,0 +1,92 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <h5>Si ya tienes una compañía y la quieres usar en este presupuesto, puedes seleccionarla</h5>
+
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>Tus compañías</mat-label>
+
+    <mat-icon matSuffix>
+      <em class="mdi mdi-domain mdi-26px mdi-input"></em>
+    </mat-icon>
+
+    <input
+      type="text"
+      placeholder="Selecciona una compañía"
+      aria-label="Number"
+      matInput
+      formControlName="company"
+      [matAutocomplete]="auto"
+    >
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="onSelectCompany()"
+      (closed)="onSelectCompany()"
+    >
+      <mat-option *ngFor="let company of filteredCompanies" [value]="company.name">
+        {{ company.name }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="w-50 pr-3" appearance="outline">
+    <mat-label>Logo</mat-label>
+    <input
+      matInput
+      placeholder="Last name, First name"
+      formControlName="logoUrl"
+    >
+  </mat-form-field>
+
+  <mat-form-field class="w-50" appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input
+      matInput
+      placeholder="ElctroCopu"
+      formControlName="name"
+      required
+    >
+
+    <mat-error>No puede haber una compañía sin nombre</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-50 pr-3" appearance="outline">
+    <mat-label>Eslogan</mat-label>
+    <input
+      matInput
+      placeholder="Por que tirar, cuando puedes reparar!"
+      formControlName="slogan"
+      required
+    >
+
+    <mat-error>
+      Recuerda que el eslogan es muy importante para que tu compañía sea recordada,
+      por eso no puede haber una compañía sin eslogan
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-50" appearance="outline">
+    <mat-label>Title</mat-label>
+    <input
+      matInput
+      placeholder="Electronica, reparación de computadoras y servicios técnicos"
+      formControlName="title"
+    >
+  </mat-form-field>
+
+  <app-alert
+    *ngIf="companyMessageError"
+    type="error"
+    [message]="companyMessageError"
+  ></app-alert>
+
+  <div class="text-right">
+    <button
+      mat-stroked-button
+      color="accent"
+      [disabled]="load"
+    >
+      ¡Listo!
+      <em *ngIf="!load" class="mdi mdi-hand-okay"></em>
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+    </button>
+  </div>
+</form>

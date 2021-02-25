@@ -1,138 +1,30 @@
-<mat-vertical-stepper [linear]="true" #stepper>
-  <mat-step [stepControl]="companyForm" [editable]="false">
-    <form [formGroup]="companyForm">
-      <ng-template matStepLabel>Primero, ¡Vamos a crear una compañía!</ng-template>
+<form [formGroup]="form">
+  <mat-form-field class="w-50 pr-3" floatLabel="always" appearance="outline">
+    <mat-label>Mano de obra</mat-label>
 
-      <h5>Si ya tienes una compañía y la quieres usar en este presupuesto, puedes seleccionarla</h5>
+    <mat-icon matSuffix>
+      <em class="mdi mdi-cash-multiple mdi-26px mdi-input"></em>
+    </mat-icon>
 
-      <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Tus compañías</mat-label>
-        <input
-          type="text"
-          placeholder="Pick one"
-          aria-label="Number"
-          matInput
-          formControlName="company"
-          [matAutocomplete]="auto"
-        >
-        <mat-autocomplete
-          #auto="matAutocomplete"
-          (optionSelected)="onSelectCompany()"
-          (closed)="onSelectCompany()"
-        >
-          <mat-option *ngFor="let company of filteredCompanies" [value]="company.name">
-            {{ company.name }}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+    <input
+      matInput
+      appInputMask
+      placeholder="Last name, First name"
+      [mask]="moneyMask"
+    >
+  </mat-form-field>
 
-      <mat-form-field class="w-50 pr-3" appearance="outline">
-        <mat-label>Logo</mat-label>
-        <input
-          matInput
-          placeholder="Last name, First name"
-          formControlName="logoUrl"
-        >
-      </mat-form-field>
+  <mat-form-field class="w-50" appearance="outline">
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
-      <mat-form-field class="w-50" appearance="outline">
-        <mat-label>Nombre</mat-label>
-        <input
-          matInput
-          placeholder="ElctroCopu"
-          formControlName="name"
-          required
-        >
+  <app-alert
+    type="info"
+    message="¿Ya sabes cuanto quieres cobrar? - Si aun no sabes aún puedes dejar el campo en 0.0"
+  >
+  </app-alert>
+</form>
 
-        <mat-error>No puede haber una compañía sin nombre</mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="w-50 pr-3" appearance="outline">
-        <mat-label>Eslogan</mat-label>
-        <input
-          matInput
-          placeholder="Por que tirar, cuando puedes reparar!"
-          formControlName="slogan"
-          required
-        >
-
-        <mat-error>
-          Recuerda que el eslogan es muy importante para que tu compañía sea recordada,
-          por eso no puede haber una compañía sin eslogan
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field class="w-50" appearance="outline">
-        <mat-label>Title</mat-label>
-        <input
-          matInput
-          placeholder="Electronica, reparación de computadoras y servicios técnicos"
-          formControlName="title"
-        >
-      </mat-form-field>
-
-      <app-alert
-        *ngIf="companyMessageError"
-        type="error"
-        [message]="companyMessageError"
-      ></app-alert>
-
-      <div class="text-right">
-        <button
-          mat-stroked-button
-          color="accent"
-          (click)="companySave(stepper)"
-        >
-          Listo
-        </button>
-      </div>
-    </form>
-  </mat-step>
-
-  <mat-step [stepControl]="secondFormGroup" [editable]="false">
-    <form [formGroup]="secondFormGroup" (ngSubmit)="clientSubmit(stepper)">
-      <ng-template matStepLabel>Ahora, ¡Vamos a registrar un cliente!</ng-template>
-
-      <mat-form-field class="w-50 mb-3" appearance="outline">
-        <mat-label>Dirección</mat-label>
-        <input
-          matInput
-          appGoogleMapsSearch
-          required
-          formControlName="secondCtrl"
-          placeholder="Valle de las Petunias 19, Buenavista, Jal., México"
-          (selectAddress)="printAddress($event)"
-          (validAddress)="validateAddress($event)"
-        >
-
-        <mat-error>
-          Recuerda que tener una dirección completa hace la diferencia al buscar un lugar,
-          por eso debes seleccionar una dirección valida en el buscador o en el mapa
-        </mat-error>
-      </mat-form-field>
-
-      <div
-        appGoogleMap
-        [lat]="lat"
-        [lng]="lng"
-        (selectAddress)="setAddressText($event)"
-        (validAddress)="validateAddress($event)"
-      >
-      </div>
-
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button>Next</button>
-      </div>
-    </form>
-  </mat-step>
-
-  <mat-step>
-    <ng-template matStepLabel>Por ultimo, ¡Vamos a dar los ultimos detalles!</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-vertical-stepper>

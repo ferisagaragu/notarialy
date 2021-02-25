@@ -28,44 +28,42 @@ export class GoogleMapDirective implements AfterViewInit, OnChanges {
   ngAfterViewInit() {
     const element = this.elementRef.nativeElement;
 
-    navigator.geolocation.getCurrentPosition((position) => {
+    this.findAddressByLatLng(
+      this.lat,
+      this.lng
+    );
+
+    this.map = new google.maps.Map(element, {
+      center: {
+        lat: this.lat,
+        lng: this.lng
+      },
+      zoom: 18,
+      draggableCursor: 'default'
+    });
+
+    this.marker = new google.maps.Marker({
+      position: {
+        lat: this.lat,
+        lng: this.lng
+      },
+      map: this.map,
+      draggable: true,
+    });
+
+    google.maps.event.addListener(this.map, 'click',(event) => {
+      this.marker.setPosition(event.latLng);
       this.findAddressByLatLng(
-        position.coords.latitude,
-        position.coords.longitude
+        event.latLng.lat(),
+        event.latLng.lng()
       );
+    });
 
-      this.map = new google.maps.Map(element, {
-        center: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        },
-        zoom: 18,
-        draggableCursor: 'default'
-      });
-
-      this.marker = new google.maps.Marker({
-        position: {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        },
-        map: this.map,
-        draggable: true,
-      });
-
-      google.maps.event.addListener(this.map, 'click',(event) => {
-        this.marker.setPosition(event.latLng);
-        this.findAddressByLatLng(
-          event.latLng.lat(),
-          event.latLng.lng()
-        );
-      });
-
-      google.maps.event.addListener(this.marker, 'dragend', (event) => {
-        this.findAddressByLatLng(
-          event.latLng.lat(),
-          event.latLng.lng()
-        );
-      });
+    google.maps.event.addListener(this.marker, 'dragend', (event) => {
+      this.findAddressByLatLng(
+        event.latLng.lat(),
+        event.latLng.lng()
+      );
     });
 
     element.style.width = '100%';
@@ -83,7 +81,6 @@ export class GoogleMapDirective implements AfterViewInit, OnChanges {
     this.googleMapsService.findAddressByLatLng(lat, lng).subscribe(
       resp => {
         this.selectAddress.emit(new AddressModel(resp.results[0], true));
-        this.validAddress.emit(true);
       }, error => { }
     );
   }

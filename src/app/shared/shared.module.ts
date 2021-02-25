@@ -8,16 +8,23 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import { AlertComponent } from './alert/alert.component';
+
 import { GoogleMapsSearchDirective } from '../core/directives/google-maps-search.directive';
 import { GoogleMapDirective } from '../core/directives/google-map.directive';
+import { InputMaskDirective } from '../core/directives/input-mask.directive';
+
 
 @NgModule({
   declarations: [
     AlertComponent,
     GoogleMapsSearchDirective,
-    GoogleMapDirective
+    GoogleMapDirective,
+    InputMaskDirective
   ],
   imports: [
     CommonModule,
@@ -27,7 +34,10 @@ import { GoogleMapDirective } from '../core/directives/google-map.directive';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -37,9 +47,13 @@ import { GoogleMapDirective } from '../core/directives/google-map.directive';
     MatFormFieldModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AlertComponent,
     GoogleMapsSearchDirective,
-    GoogleMapDirective
+    GoogleMapDirective,
+    InputMaskDirective
   ]
 })
 export class SharedModule { }

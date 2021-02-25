@@ -1,7 +1,12 @@
-<div class="w-100 alert" [class.alert-error]="type === 'error'">
+<div
+  class="w-100 alert"
+  [class.alert-error]="type === 'error'"
+  [class.alert-info]="type === 'info'"
+>
   <div class="row">
     <div class="col-1 text-center">
-      <em class="mdi mdi-alert-octagram-outline mdi-36px"></em>
+      <em *ngIf="type === 'error'" class="mdi mdi-alert-octagram-outline mdi-36px"></em>
+      <em *ngIf="type === 'info'" class="mdi mdi-alert-circle-outline mdi-36px"></em>
     </div>
 
     <div class="col-11">

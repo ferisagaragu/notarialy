@@ -8,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AlertComponent {
 
   @Input()
-  type: 'error';
+  type: 'error' | 'info';
 
   @Input()
   message: string;

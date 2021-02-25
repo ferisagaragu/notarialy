@@ -1,0 +1,151 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field class="w-100" appearance="outline">
+    <mat-label>Tus clientes</mat-label>
+
+    <mat-icon matSuffix>
+      <em class="mdi mdi-account-circle mdi-26px mdi-input"></em>
+    </mat-icon>
+
+    <input
+      type="text"
+      placeholder="Selecciona un cliente"
+      aria-label="Number"
+      matInput
+      formControlName="client"
+      [matAutocomplete]="auto"
+    >
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      (optionSelected)="onSelectClient()"
+      (closed)="onSelectClient()"
+    >
+      <mat-option
+        *ngFor="let client of filteredClients"
+        [value]="client.name + ' ' + client.surname + ' ' + client.motherSurname"
+      >
+        {{ client.name }} {{ client.surname }} {{ client.motherSurname }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+
+  <mat-form-field class="w-50 pr-3" appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input
+      matInput
+      placeholder="Last name, First name"
+      formControlName="name"
+    >
+
+    <mat-error>No puede haber un cliente sin nombre</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-50 mb-3" appearance="outline">
+    <mat-label>Apellido paterno</mat-label>
+    <input
+      matInput
+      placeholder="Last name, First name"
+      formControlName="surname"
+    >
+
+    <mat-error>
+      Por que los nombres no son unicos es necesario
+      el apellido materno del cliente, para un mejor reconocimiento
+      del cliente
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-50 pr-3 mb-3" appearance="outline">
+    <mat-label>Apellido materno</mat-label>
+    <input
+      matInput
+      placeholder="Last name, First name"
+      formControlName="motherSurname"
+    >
+
+    <mat-error>
+      Por que los nombres no son unicos es necesario
+      el apellido materno del cliente, para un mejor reconocimiento
+      del cliente
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-50" appearance="outline">
+    <mat-label>Número telefónico</mat-label>
+
+    <mat-icon matSuffix>
+      <em class="mdi mdi-phone mdi-26px mdi-input"></em>
+    </mat-icon>
+
+    <input
+      matInput
+      appInputMask
+      placeholder="Last name, First name"
+      formControlName="phoneNumber"
+      autocomplete="off"
+      mask="99-99-99-99-99"
+    >
+
+    <mat-error>
+      Es importante poder contactar al cliente, por esto
+      el número telefónico es necesario
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    class="w-100"
+    appearance="outline"
+    [class.mt-3]="!clientSelected"
+  >
+    <mat-label>Dirección</mat-label>
+
+    <mat-icon matSuffix>
+      <em class="mdi mdi-map-search mdi-26px mdi-input"></em>
+    </mat-icon>
+
+    <input
+      matInput
+      required
+      appGoogleMapsSearch
+      placeholder="Valle de las Petunias 19, Buenavista, Jal., México"
+      formControlName="address"
+      (selectAddress)="onSelectAddress($event)"
+      (blur)="onBlurAddress($event)"
+    >
+
+    <mat-error>
+      Recuerda que tener una dirección completa hace la diferencia al buscar un lugar,
+      por eso debes seleccionar una dirección valida en el buscador o en el mapa
+    </mat-error>
+  </mat-form-field>
+
+  <div
+    *ngIf="!clientSelected"
+    class="mb-4"
+    appGoogleMap
+    [lat]="lat"
+    [lng]="lng"
+    (selectAddress)="onSelectAddressMap($event)"
+  >
+  </div>
+
+  <app-alert
+    *ngIf="clientMessageError"
+    type="error"
+    [message]="clientMessageError"
+  ></app-alert>
+
+  <div
+    class="text-right"
+    [class.mt-4]="!clientSelected"
+  >
+    <button
+      mat-stroked-button
+      color="accent"
+      [disabled]="load"
+    >
+      ¡Listo!
+      <em *ngIf="!load" class="mdi mdi-hand-okay"></em>
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+    </button>
+  </div>
+</form>
