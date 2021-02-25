@@ -1,4 +1,4 @@
-<mat-vertical-stepper [linear]="true" #stepper>
+<mat-vertical-stepper [linear]="true" [selectedIndex]="2" #stepper>
   <mat-step [editable]="false">
     <ng-template matStepLabel>Primero, ¡Vamos a crear una compañía!</ng-template>
     <app-form-company [stepper]="stepper" (saveCompany)="saveCompany($event)"></app-form-company>
