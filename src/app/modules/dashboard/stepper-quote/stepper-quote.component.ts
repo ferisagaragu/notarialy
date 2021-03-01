@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompanyModel } from '../../../core/models/company.model';
+import { ClientModel } from '../../../core/models/client.model';
 
 @Component({
   selector: 'app-stepper-quote',
@@ -10,22 +11,20 @@ import { CompanyModel } from '../../../core/models/company.model';
 })
 export class StepperQuoteComponent implements OnInit {
 
-  endForm: FormGroup;
+  companySelected: CompanyModel;
+  clienteSelected: ClientModel;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
-  ) { }
+  constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
-    this.endForm = this.formBuilder.group({
-      name: ['', Validators.required]
+  saveQuote(event: any): void {
+    console.log({
+      companyUuid: this.companySelected.uuid,
+      clientUuid: this.clienteSelected.uuid,
+      createDate: event.createDate.format(),
+      workforce: event.workforce
     });
-  }
-
-  saveCompany($event: CompanyModel) {
-    console.log($event);
   }
 
 }

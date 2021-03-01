@@ -52,7 +52,10 @@ export class FormClientComponent implements OnInit {
     const clientValue = this.form.get('client').value;
 
     if (clientValue) {
-      this.client = this.clients.find(client => client.name === clientValue);
+      this.client = this.clients.find(
+        client => `${client.name} ${client.surname} ${client.motherSurname}`
+          === clientValue
+      );
       this.clientMessageError = null;
       this.saveClient.emit(this.client);
       this.stepper.next();
@@ -64,8 +67,9 @@ export class FormClientComponent implements OnInit {
 
     this.clientService.createClient({
       ...this.form.value,
-      address: `${this.address.street} ${this.address.number}${this.address.suburb ? `, ${this.address.suburb}` : ''}${this.address.postalCode ? `, ${this.address.postalCode}` : ''}`,
-      city: `${this.address?.city}, ${this.address?.municipality}, ${this.address?.country}`
+      address: this.address.formatted,
+      lat: this.address.lat,
+      lng: this.address.lng
     }).subscribe(
       resp => {
         this.client = resp;

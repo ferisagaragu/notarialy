@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (ngSubmit)="save()">
   <mat-form-field class="w-50 pr-3" floatLabel="always" appearance="outline">
     <mat-label>Mano de obra</mat-label>
 
@@ -19,9 +19,9 @@
     <input
       matInput
       formControlName="createDate"
+      autocomplete="off"
       [matDatepicker]="picker"
       (keydown)="$event.preventDefault()"
-      autocomplete="off"
     >
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>

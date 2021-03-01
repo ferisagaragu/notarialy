@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
@@ -20,16 +21,16 @@ import { GoogleMapDirective } from '../core/directives/google-map.directive';
 import { InputMaskDirective } from '../core/directives/input-mask.directive';
 import { DATE_FORMAT } from '../core/formats/date.format';
 
-
 @NgModule({
   providers: [
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE]
-    },
-
-    { provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT }
+    },{
+      provide: MAT_DATE_FORMATS,
+      useValue: DATE_FORMAT
+    }
   ],
   declarations: [
     AlertComponent,
@@ -48,7 +49,8 @@ import { DATE_FORMAT } from '../core/formats/date.format';
     MatSnackBarModule,
     MatIconModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -61,6 +63,7 @@ import { DATE_FORMAT } from '../core/formats/date.format';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatDialogModule,
     AlertComponent,
     GoogleMapsSearchDirective,
     GoogleMapDirective,

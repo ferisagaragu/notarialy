@@ -49,6 +49,7 @@ export class GoogleMapDirective implements AfterViewInit, OnChanges {
       },
       map: this.map,
       draggable: true,
+      icon: '../../../assets/svg/map-marker.svg'
     });
 
     google.maps.event.addListener(this.map, 'click',(event) => {

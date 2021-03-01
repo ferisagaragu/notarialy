@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from 'moment';
 
@@ -10,6 +10,8 @@ import * as moment from 'moment';
 })
 export class FormQuoteComponent implements OnInit {
 
+  @Output() saveQuote: EventEmitter<any>;
+
   form: FormGroup;
   moneyMask: any;
 
@@ -18,11 +20,20 @@ export class FormQuoteComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
     this.moneyMask = { alias: 'pesos' };
+    this.saveQuote = new EventEmitter<any>();
   }
 
   ngOnInit() {
+    this.createForm();
+  }
+
+  save(): void {
+    this.saveQuote.emit(this.form.value);
+  }
+
+  private createForm(): void {
     this.form = this.formBuilder.group({
-      workforce: [''],
+      workforce: [0],
       createDate: [moment()]
     });
   }

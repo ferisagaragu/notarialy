@@ -1,5 +1,6 @@
 import { AfterViewInit, Directive, ElementRef, Input } from '@angular/core';
 import Inputmask from 'inputmask';
+import { PESOS_FORMAT } from '../formats/pesos.format';
 
 @Directive({
   selector: '[appInputMask]'
@@ -12,19 +13,9 @@ export class InputMaskDirective implements AfterViewInit {
 
   ngAfterViewInit(): void {
     Inputmask.extendAliases({
-      pesos: {
-        suffix: ' MNX',
-        groupSeparator: '.',
-        alias: 'numeric',
-        placeholder: '0',
-        autoGroup: true,
-        digits: 2,
-        digitsOptional: false,
-        clearMaskOnLostFocus: false,
-        rightAlign: false
-      }
+      pesos: PESOS_FORMAT
     });
-    //const inputMask = new Inputmask({ alias : 'pesos' });
+
     const inputMask = new Inputmask(this.mask);
     inputMask.mask(this.elementRef.nativeElement);
   }

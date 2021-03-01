@@ -1,17 +1,17 @@
-<mat-vertical-stepper [linear]="true" [selectedIndex]="2" #stepper>
+<mat-vertical-stepper [linear]="true" #stepper>
   <mat-step [editable]="false">
-    <ng-template matStepLabel>Primero, ¡Vamos a crear una compañía!</ng-template>
-    <app-form-company [stepper]="stepper" (saveCompany)="saveCompany($event)"></app-form-company>
+    <ng-template matStepLabel>Primero, ¡Vamos a registrar una compañía!</ng-template>
+    <app-form-company [stepper]="stepper" (saveCompany)="companySelected = $event"></app-form-company>
   </mat-step>
 
   <mat-step [editable]="false">
     <ng-template matStepLabel>Ahora, ¡Vamos a registrar un cliente!</ng-template>
-    <app-form-client [stepper]="stepper"></app-form-client>
+    <app-form-client [stepper]="stepper" (saveClient)="clienteSelected = $event"></app-form-client>
   </mat-step>
 
   <mat-step [editable]="false">
     <ng-template matStepLabel>Por ultimo, ¡Vamos a dar los últimos detalles del presupuesto!</ng-template>
-    <app-form-quote></app-form-quote>
+    <app-form-quote (saveQuote)="saveQuote($event)" ></app-form-quote>
   </mat-step>
 </mat-vertical-stepper>
 

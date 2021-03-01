@@ -22,6 +22,7 @@
       (closed)="onSelectCompany()"
     >
       <mat-option *ngFor="let company of filteredCompanies" [value]="company.name">
+        <em class="mdi mdi-alpha-c-circle-outline" [ngStyle]="{ color: company.color }"></em>
         {{ company.name }}
       </mat-option>
     </mat-autocomplete>

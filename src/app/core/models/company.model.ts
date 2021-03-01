@@ -5,6 +5,7 @@ export class CompanyModel {
   slogan: string;
   title: string;
   logoUrl: string;
+  color: string;
   userUuid: string;
 
   constructor(data: CompanyModel | any) {

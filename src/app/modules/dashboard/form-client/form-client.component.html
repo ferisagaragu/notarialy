@@ -23,6 +23,7 @@
         *ngFor="let client of filteredClients"
         [value]="client.name + ' ' + client.surname + ' ' + client.motherSurname"
       >
+        <em class="mdi mdi-account" [ngStyle]="{ color: client.color }"></em>
         {{ client.name }} {{ client.surname }} {{ client.motherSurname }}
       </mat-option>
     </mat-autocomplete>
@@ -108,8 +109,10 @@
       appGoogleMapsSearch
       placeholder="Valle de las Petunias 19, Buenavista, Jal., México"
       formControlName="address"
+      autocomplete="off"
       (selectAddress)="onSelectAddress($event)"
       (blur)="onBlurAddress($event)"
+      (keydown.enter)="$event.preventDefault()"
     >
 
     <mat-error>
