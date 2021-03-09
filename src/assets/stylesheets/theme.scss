@@ -38,3 +38,31 @@ $my-theme: mat-light-theme($my-primary, $my-accent);
 .mdi-input {
   color: #757575 !important;
 }
+
+.w-30 {
+  width: 30% !important;
+}
+
+.mat-mini-fab {
+  width: 26px !important;
+  height: 26px !important;
+  position: relative;
+}
+
+.mat-mini-fab>.mat-button-wrapper {
+  position: absolute;
+  margin-top: -20px;
+  margin-left: -9px;
+}
+
+.mat-mini-fab-success {
+  background: #4CAF50 !important;
+}
+
+.mat-mini-fab-error {
+  background: #F44336 !important;
+}
+
+.pointer {
+  cursor: pointer;
+}

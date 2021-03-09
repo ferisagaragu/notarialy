@@ -11,7 +11,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { AlertComponent } from './alert/alert.component';
@@ -20,6 +23,9 @@ import { GoogleMapsSearchDirective } from '../core/directives/google-maps-search
 import { GoogleMapDirective } from '../core/directives/google-map.directive';
 import { InputMaskDirective } from '../core/directives/input-mask.directive';
 import { DATE_FORMAT } from '../core/formats/date.format';
+import { MoneyPipe } from '../core/pipes/money.pipe';
+import { DateFormatPipe } from '../core/pipes/date-format.pipe';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   providers: [
@@ -36,7 +42,9 @@ import { DATE_FORMAT } from '../core/formats/date.format';
     AlertComponent,
     GoogleMapsSearchDirective,
     GoogleMapDirective,
-    InputMaskDirective
+    InputMaskDirective,
+    MoneyPipe,
+    DateFormatPipe
   ],
   imports: [
     CommonModule,
@@ -50,7 +58,12 @@ import { DATE_FORMAT } from '../core/formats/date.format';
     MatIconModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule
+    MatDialogModule,
+    MatCardModule,
+    MatRippleModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatSelectModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -64,10 +77,17 @@ import { DATE_FORMAT } from '../core/formats/date.format';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatCardModule,
+    MatRippleModule,
+    MatMenuModule,
+    MatExpansionModule,
+    MatSelectModule,
     AlertComponent,
     GoogleMapsSearchDirective,
     GoogleMapDirective,
-    InputMaskDirective
+    InputMaskDirective,
+    MoneyPipe,
+    DateFormatPipe
   ]
 })
 export class SharedModule { }

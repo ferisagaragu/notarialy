@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     { provide: LOCALE_ID, useValue: 'es-ES' }
   ],
-  exports: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { QuoteService } from '../../../core/http/quote.service';
+import { QuoteModel } from '../../../core/models/quote.model';
 import { StepperQuoteComponent } from '../stepper-quote/stepper-quote.component';
 
 @Component({
@@ -9,10 +11,25 @@ import { StepperQuoteComponent } from '../stepper-quote/stepper-quote.component'
 })
 export class ListQuoteComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  quotes: Array<QuoteModel>;
+
+  constructor(
+    private dialog: MatDialog,
+    private quoteService: QuoteService
+  ) { }
 
   ngOnInit(): void {
-    const dialogRef = this.dialog.open(
+    this.quoteService.findAllQuotes().subscribe(
+      resp => {
+        this.quotes = resp;
+      }, () => {
+
+      }
+    );
+  }
+
+  openDialog(): void {
+    this.dialog.open(
       StepperQuoteComponent,
       {
         width: '50%',
@@ -21,5 +38,4 @@ export class ListQuoteComponent implements OnInit {
       }
     );
   }
-
 }

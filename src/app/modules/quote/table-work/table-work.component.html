@@ -1,0 +1,113 @@
+<mat-card class="mt-4 pt-5 pl-5 pr-5 pb-4">
+  <div class="w-100 text-right">
+    <button
+      mat-mini-fab
+      class="mat-mini-fab-success"
+      [disabled]="load"
+      (click)="addElement()"
+    >
+      <em class="mdi mdi-plus mdi-18px"></em>
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-3 text-center">
+      <strong>Cantidad</strong>
+    </div>
+
+    <div class="col-3 text-center">
+      <strong>Concepto</strong>
+    </div>
+
+    <div class="col-2 text-center">
+      <strong>Precio Unitario</strong>
+    </div>
+
+    <div class="col-2 text-center">
+      <strong>Importe</strong>
+    </div>
+
+    <div class="col-2 text-center">
+      <strong>Acciones</strong>
+    </div>
+
+    <hr>
+
+    <div class="col-12">
+      <app-form-work
+        *ngFor="let work of works; let i = index;"
+        [work]="work"
+        [disabled]="load"
+        (saveWork)="saveWork(i, $event)"
+        (removeWork)="removeWork(i)"
+      >
+      </app-form-work>
+    </div>
+
+    <div
+      *ngIf="works.length === 0"
+      class="col-12 text-center mt-2 mb-2"
+    >
+      <em>
+        Añade artículos a tu presupuesto. Añade artículos con el botón agregar
+        <em class="mdi mdi-plus"></em> y cuando este listo tu
+        registro guardarlo con el botón okay <em class="mdi mdi-check"></em>
+      </em>.
+    </div>
+
+    <hr *ngIf="works.length === 0" class="mb-4">
+
+    <div class="col-9 pt-4 text-right">
+      <strong>Mano de obra</strong>
+    </div>
+
+    <div class="col-3 text-center">
+      <mat-form-field floatLabel="always" appearance="outline">
+        <mat-label>Mano de obra</mat-label>
+
+        <input
+          matInput
+          appInputMask
+          placeholder="2,000.00 MNX"
+          [formControl]="workforce"
+          [mask]="moneyMask"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col-9 text-right">
+      <strong>Total</strong>
+    </div>
+
+    <div class="col-3 text-center">
+      {{ sumTotal() | money }}
+    </div>
+  </div>
+
+  <div class="col-12 mt-5 text-right">
+    <button
+      mat-stroked-button
+      class="mr-2"
+      color="accent"
+      [disabled]="load"
+      (click)="save(true)"
+    >
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+      <em *ngIf="!load" class="mdi mdi-file-pdf"></em>
+      Guardar y exportar
+    </button>
+
+    <button
+      mat-stroked-button
+      color="accent"
+      [disabled]="load"
+      (click)="save(false)"
+    >
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+      <em *ngIf="!load" class="mdi mdi-content-save"></em>
+      Guardar
+    </button>
+  </div>
+</mat-card>
+
+<span class="mt-4" style="width: 1px; height: 1px;"></span>

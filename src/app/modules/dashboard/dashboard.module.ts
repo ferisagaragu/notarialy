@@ -8,6 +8,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { StepperQuoteComponent } from './stepper-quote/stepper-quote.component';
 import { FormCompanyComponent } from './form-company/form-company.component';
 import { FormClientComponent } from './form-client/form-client.component';
+import { ItemQuoteComponent } from './item-quote/item-quote.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { FormClientComponent } from './form-client/form-client.component';
     FormQuoteComponent,
     StepperQuoteComponent,
     FormCompanyComponent,
-    FormClientComponent
+    FormClientComponent,
+    ItemQuoteComponent
   ],
   imports: [
     CommonModule,

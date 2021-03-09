@@ -1,0 +1,12 @@
+<app-expansion-quote-detail
+  *ngIf="quote"
+  [company]="quote.company"
+  [client]="quote.client"
+  [user]="quote.user"
+>
+</app-expansion-quote-detail>
+
+<app-table-work *ngIf="quote" [quote]="quote">
+</app-table-work>
+
+<div class="row mt-5"></div>

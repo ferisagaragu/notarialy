@@ -16,8 +16,7 @@ export class FormQuoteComponent implements OnInit {
   moneyMask: any;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar
+    private formBuilder: FormBuilder
   ) {
     this.moneyMask = { alias: 'pesos' };
     this.saveQuote = new EventEmitter<any>();

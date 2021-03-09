@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { CompanyModel } from '../../../core/models/company.model';
 import { ClientModel } from '../../../core/models/client.model';
+import { QuoteService } from '../../../core/http/quote.service';
+import { MatDialog } from '@angular/material/dialog';
+import { convertMoneyToNumber } from '../../../core/functions/convert-money-to-number';
 
 @Component({
   selector: 'app-stepper-quote',
@@ -14,16 +15,23 @@ export class StepperQuoteComponent implements OnInit {
   companySelected: CompanyModel;
   clienteSelected: ClientModel;
 
-  constructor() { }
+  constructor(
+    private quoteService: QuoteService,
+    public dialog: MatDialog
+  ) { }
 
   ngOnInit(): void { }
 
   saveQuote(event: any): void {
-    console.log({
+    this.quoteService.createQuote({
       companyUuid: this.companySelected.uuid,
       clientUuid: this.clienteSelected.uuid,
       createDate: event.createDate.format(),
-      workforce: event.workforce
+      workforce: convertMoneyToNumber(event.workforce)
+    }).subscribe(resp => {
+      console.log(resp);
+    }, ({ error }) => {
+
     });
   }
 

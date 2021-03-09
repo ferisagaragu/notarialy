@@ -1,1 +1,17 @@
-<app-stepper-quote></app-stepper-quote>
+<button
+  mat-fab
+  class="quote-button-position"
+  color="accent"
+  (click)="openDialog()"
+>
+  <mat-icon class="quote-button-icon-position">
+    <em class="mdi mdi-note-plus mdi-26px"></em>
+  </mat-icon>
+</button>
+
+<div class="row">
+  <div class="col-4 mb-3" *ngFor="let quote of quotes">
+    <app-item-quote [quote]="quote">
+    </app-item-quote>
+  </div>
+</div>

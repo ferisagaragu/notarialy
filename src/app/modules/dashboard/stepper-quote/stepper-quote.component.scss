@@ -1,0 +1,16 @@
+.close-container {
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: -15px;
+  right: 15px;
+}
+
+.close-button>button {
+  position: fixed;
+  border: none;
+  background: none;
+  border-radius: 10px;
+}

@@ -1,0 +1,62 @@
+<mat-card>
+  <div class="row">
+    <div class="col-2 text-center mt-2">
+      <em
+        class="mdi mdi-note-text mdi-36px pointer"
+        [ngStyle]="{ color: quote.color }"
+        [routerLink]="['/quote', quote.uuid]"
+      >
+      </em>
+    </div>
+
+    <div class="col-8">
+      <div>
+        {{ quote.client.name }} {{ quote.client.surname }} {{ quote.client.motherSurname }}
+      </div>
+
+      <div>
+        {{ quote.createDate | dateFormat }}
+      </div>
+
+      <div>
+        {{ quote.workforce  | money }}
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div
+        matRipple
+        class="options-button text-center"
+        [matMenuTriggerFor]="menu"
+      >
+        <em class="mdi mdi-dots-vertical"></em>
+      </div>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <div class="row">
+            <div class="col-6">
+              Editar
+            </div>
+
+            <div class="col-6 text-right">
+              <em class="mdi mdi-pencil"></em>
+            </div>
+          </div>
+        </button>
+
+        <button mat-menu-item>
+          <div class="row">
+            <div class="col-6">
+              Eliminar
+            </div>
+
+            <div class="col-6 text-right">
+              <em class="mdi mdi-trash-can"></em>
+            </div>
+          </div>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-card>
