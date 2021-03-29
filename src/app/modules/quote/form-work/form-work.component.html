@@ -1,0 +1,122 @@
+<div *ngIf="!editable && !work.isNew" >
+  <div class="row mb-3">
+    <div class="col-3 text-center mt-2">
+      {{ work.quantity }} {{ work.measure }}
+    </div>
+
+    <div class="col-3 text-center mt-2">
+      {{ work.concept }}
+    </div>
+
+    <div class="col-2 text-center mt-2">
+      {{ work.unitPrice | money }}
+    </div>
+
+    <div class="col-2 text-center mt-2">
+      {{ work.totalPrice | money }}
+    </div>
+
+    <div class="col-2 text-center">
+      <button
+        mat-mini-fab
+        [disabled]="disabled"
+        (click)="editable = true"
+      >
+        <em class="mdi mdi-pencil mdi-18px"></em>
+      </button>
+
+      <button
+        mat-mini-fab
+        class="ml-2 mat-mini-fab-error"
+        type="button"
+        [disabled]="disabled"
+        (click)="removeWork.emit()"
+      >
+        <em class="mdi mdi-trash-can mdi-18px"></em>
+      </button>
+    </div>
+  </div>
+
+  <hr>
+</div>
+
+<form *ngIf="editable || work.isNew" [formGroup]="form" (ngSubmit)="save()">
+  <div class="row mb-3">
+    <div class="col-3 text-center">
+      <mat-form-field class="w-50" appearance="outline">
+        <mat-label>Cantidad</mat-label>
+        <input
+          matInput
+          required
+          placeholder="Por que tirar, cuando puedes reparar!"
+          formControlName="quantity"
+          type="number"
+        >
+      </mat-form-field>
+
+      <mat-form-field class="w-30 ml-1" appearance="outline">
+        <mat-label>Medida</mat-label>
+        <mat-select formControlName="measure">
+          <mat-option
+            *ngFor="let measure of measures"
+            [value]="measure"
+          >
+            {{ measure }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="col-3 text-center">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Concepto</mat-label>
+        <input
+          matInput
+          placeholder="Por que tirar, cuando puedes reparar!"
+          formControlName="concept"
+          required
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col-2 text-center">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Precio Unitario</mat-label>
+        <input
+          matInput
+          appInputMask
+          required
+          placeholder="Por que tirar, cuando puedes reparar!"
+          formControlName="unitPrice"
+          [mask]="moneyMask"
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="col-2 text-center mt-3">
+      {{ totalPrice | money }}
+    </div>
+
+    <div class="col-2 text-center mt-3">
+      <button
+        mat-mini-fab
+        class="mat-mini-fab-success"
+        [disabled]="disabled"
+      >
+        <em class="mdi mdi-check mdi-18px"></em>
+      </button>
+
+      <button
+        mat-mini-fab
+        class="ml-2 mat-mini-fab-error"
+        type="button"
+        [disabled]="disabled"
+        (click)="onCancel()"
+      >
+        <em class="mdi mdi-close mdi-18px"></em>
+      </button>
+    </div>
+  </div>
+
+  <hr>
+</form>

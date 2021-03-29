@@ -8,13 +8,13 @@ import { environment } from '../../../environments/environment';
 })
 export class WorkService extends HttpService {
 
-  constructor(public http: HttpClient) {
-    super(http);
+  constructor(private http: HttpClient) {
+    super();
   }
 
   saveGroupWorks(worsk: any) {
     return this.http.post(
-      `${environment.baseUrl}/works`,
+      `${environment.baseUrl}/works/save-group`,
       worsk,
       { headers: this.headers }
     );

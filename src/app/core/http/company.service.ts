@@ -11,8 +11,8 @@ import { HttpService } from './http-service.service';
 })
 export class CompanyService extends HttpService {
 
-  constructor(public http: HttpClient) {
-    super(http);
+  constructor(private http: HttpClient) {
+    super();
   }
 
   findAllCompanies(): Observable<Array<CompanyModel>> {
@@ -22,12 +22,35 @@ export class CompanyService extends HttpService {
     ).pipe(map((resp: any) => resp.data.map(data => new CompanyModel(data))));
   }
 
-  createCompany(company: CompanyModel): Observable<CompanyModel> {
+  createCompany(file: File, company: CompanyModel): Observable<CompanyModel> {
+    const formData:FormData = new FormData();
+    formData.append('body', JSON.stringify(company));
+    formData.append('file', file);
+
     return this.http.post(
       `${environment.baseUrl}/companies`,
-      company,
+      formData,
       { headers: this.headers }
-    ).pipe(map((resp: any) => new CompanyModel(resp.data)))
+    ).pipe(map((resp: any) => new CompanyModel(resp.data)));
+  }
+
+  updateCompany(file: File, company: CompanyModel): Observable<CompanyModel> {
+    const formData:FormData = new FormData();
+    formData.append('body', JSON.stringify(company));
+    formData.append('file', file);
+
+    return this.http.put(
+      `${environment.baseUrl}/companies`,
+      formData,
+      { headers: this.headers }
+    ).pipe(map((resp: any) => new CompanyModel(resp.data)));
+  }
+
+  deleteCompany(uuid: string): Observable<any> {
+    return this.http.delete(
+      `${environment.baseUrl}/companies/${uuid}`,
+      { headers: this.headers }
+    );
   }
 
 }

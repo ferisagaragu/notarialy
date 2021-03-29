@@ -1,0 +1,72 @@
+<mat-card>
+  <div class="row card-height">
+    <div class="col-2 text-center mt-2">
+      <em
+        class="mdi mdi-domain mdi-36px pointer"
+        [ngStyle]="{ color: company.color }"
+      >
+      </em>
+    </div>
+
+    <div class="col-8 normal-cursor">
+      <div [matTooltip]="company.name">
+        {{ company.name | slice:0:23 }}
+        {{ company.name.length > 23 ? '...' : '' }}
+      </div>
+
+      <div class="normal-cursor" [matTooltip]="company.slogan">
+        {{ company.slogan | slice:0:23 }}
+        {{ company.slogan.length > 23 ? '...' : '' }}
+      </div>
+
+      <div class="mt-2 title normal-cursor" [matTooltip]="company.title">
+        <em>
+          {{ company.title | slice:0:23 }}
+          {{ company.title.length > 23 ? '...' : '' }}
+        </em>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div
+        matRipple
+        class="options-button text-center pointer"
+        [matMenuTriggerFor]="menu"
+        [matTooltipDisabled]="company.delete"
+        matTooltip="No se puede eliminar esta compañía por que esta siendo utilizada en un presupuesto"
+      >
+        <em class="mdi mdi-dots-vertical"></em>
+      </div>
+
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="updateCompany()">
+          <div class="row">
+            <div class="col-6">
+              Editar
+            </div>
+
+            <div class="col-6 text-right">
+              <em class="mdi mdi-pencil"></em>
+            </div>
+          </div>
+        </button>
+
+        <button
+          mat-menu-item
+          [disabled]="!company.delete"
+          (click)="deleteCompany()"
+        >
+          <div class="row">
+            <div class="col-6">
+              Eliminar
+            </div>
+
+            <div class="col-6 text-right">
+              <em class="mdi mdi-trash-can"></em>
+            </div>
+          </div>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-card>

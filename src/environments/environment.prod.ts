@@ -1,6 +1,8 @@
-export const environment = {
+import { EnvironmentInterface } from '../app/core/interfaces/environment.interface';
+
+export const environment: EnvironmentInterface = {
   production: true,
   baseUrl: 'http://localhost:5000/rest',
   googleMapsUrl: 'https://maps.googleapis.com/maps/api/geocode',
-  token: 'eyJhbGciOiJIUzUxMiJ9.eyJhdXRob3JpdGllcyI6W10sInN1YiI6ImZlcm5ueXBheTk1IiwiaWF0IjoxNjE0OTI0MTg4LCJleHAiOjE2MTQ5NDIxODh9.2HQhHAq47CT1Ht27Rh-7BU2kSv_SWwQ-3xvhs6pHodDCvzSbSB_vUXgAXI8QNzz2GJ8olWJE_vhKr0pOjc5yFw'
+  logoIconDefault: 'http://10.244.111.222:6060/storages/e11b277c-b2e2-46dd-b75f-8e6778022d3c'
 };

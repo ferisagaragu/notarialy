@@ -1,3 +1,5 @@
-<div class="container pt-5">
+<app-header *ngIf="isSignIn"></app-header>
+
+<div class="container scroll pt-5">
   <router-outlet></router-outlet>
 </div>

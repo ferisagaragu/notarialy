@@ -1,4 +1,23 @@
-<form [formGroup]="form" (ngSubmit)="save()">
+<form [formGroup]="form" (ngSubmit)="save()" [class.p-4]="data">
+
+  <mat-form-field *ngIf="data" class="w-50 pr-3" appearance="outline">
+    <mat-label>Compañía</mat-label>
+    <mat-select formControlName="companyUuid">
+      <mat-option *ngFor="let company of companies" [value]="company.uuid">
+        {{ company.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field *ngIf="data" class="w-50" appearance="outline">
+    <mat-label>Cliente</mat-label>
+    <mat-select formControlName="clientUuid">
+      <mat-option *ngFor="let client of clients" [value]="client.uuid">
+        {{ client.name }} {{ client.surname }}  {{ client.motherSurname }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <mat-form-field class="w-50 pr-3" floatLabel="always" appearance="outline">
     <mat-label>Mano de obra</mat-label>
 
@@ -33,7 +52,32 @@
   >
   </app-alert>
 
-  <div class="text-right">
+  <div *ngIf="data" class="text-right">
+    <button
+      mat-stroked-button
+      class="mr-2"
+      color="accent"
+      type="button"
+      [disabled]="load"
+      (click)="onCancel()"
+    >
+      Cancelar
+      <em class="mdi mdi-close"></em>
+    </button>
+
+    <button
+      mat-stroked-button
+      color="accent"
+      [disabled]="load"
+    >
+      Actualizar
+      <em *ngIf="!load" class="mdi mdi-pencil"></em>
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+    </button>
+  </div>
+
+
+  <div *ngIf="!data" class="text-right">
     <button
       mat-stroked-button
       color="accent"

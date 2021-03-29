@@ -1,5 +1,5 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <mat-form-field class="w-100" appearance="outline">
+<form [formGroup]="form" (ngSubmit)="save()" [class.p-4]="data">
+  <mat-form-field *ngIf="!data" class="w-100" appearance="outline">
     <mat-label>Tus clientes</mat-label>
 
     <mat-icon matSuffix>
@@ -7,13 +7,14 @@
     </mat-icon>
 
     <input
+      matInput
       type="text"
       placeholder="Selecciona un cliente"
       aria-label="Number"
-      matInput
       formControlName="client"
       [matAutocomplete]="auto"
     >
+
     <mat-autocomplete
       #auto="matAutocomplete"
       (optionSelected)="onSelectClient()"
@@ -80,7 +81,7 @@
     <input
       matInput
       appInputMask
-      placeholder="Last name, First name"
+      placeholder="99-99-99-99-99"
       formControlName="phoneNumber"
       autocomplete="off"
       mask="99-99-99-99-99"
@@ -138,6 +139,35 @@
   ></app-alert>
 
   <div
+    *ngIf="data"
+    class="text-right"
+    [class.mt-4]="!clientSelected"
+  >
+    <button
+      mat-stroked-button
+      color="accent"
+      type="button"
+      class="mr-2"
+      [disabled]="load"
+      (click)="onCancel()"
+    >
+      Cancelar
+      <em class="mdi mdi-close"></em>
+    </button>
+
+    <button
+      mat-stroked-button
+      color="accent"
+      [disabled]="load"
+    >
+      Actualizar
+      <em *ngIf="!load" class="mdi mdi-pencil"></em>
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+    </button>
+  </div>
+
+  <div
+    *ngIf="!data"
     class="text-right"
     [class.mt-4]="!clientSelected"
   >

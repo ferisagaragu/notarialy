@@ -1,4 +1,4 @@
-export const convertMoneyToNumber = (money: string) => {
+export const convertMoneyToNumber = (money: string): number => {
   if (!money) {
     return 0;
   }

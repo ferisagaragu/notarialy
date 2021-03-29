@@ -9,6 +9,7 @@ export class ClientModel {
   lng: number;
   phoneNumber: string;
   color: string;
+  delete: boolean;
 
   constructor(data: ClientModel | any) {
     Object.assign(this, data);

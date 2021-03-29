@@ -1,24 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 
 export class HttpService {
 
-  private _token: string;
-
-  constructor(public http: HttpClient) {
-    this._token = environment.token;
-  }
-
-  get token(): string {
-    return this._token;
-  }
-
-  set token(token: string) {
-    this._token = token;
-  }
-
   get headers(): HttpHeaders {
-    return new HttpHeaders().set('Authorization', `Bearer ${environment.token}`);
+    return new HttpHeaders().set('Authorization', `Bearer ${sessionStorage.getItem('token')}`);
+  }
+
+  private getToken(): string {
+    return sessionStorage.getItem('token');
   }
 
 }

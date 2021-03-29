@@ -30,6 +30,7 @@ export class StepperQuoteComponent implements OnInit {
       workforce: convertMoneyToNumber(event.workforce)
     }).subscribe(resp => {
       console.log(resp);
+      this.dialog.closeAll();
     }, ({ error }) => {
 
     });

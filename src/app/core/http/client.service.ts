@@ -11,8 +11,8 @@ import { ClientModel } from '../models/client.model';
 })
 export class ClientService extends HttpService {
 
-  constructor(public http: HttpClient) {
-    super(http);
+  constructor(private http: HttpClient) {
+    super();
   }
 
   findAllClients(): Observable<Array<ClientModel>> {
@@ -28,6 +28,21 @@ export class ClientService extends HttpService {
       client,
       { headers: this.headers }
     ).pipe(map((resp: any) => new ClientModel(resp.data)));
+  }
+
+  updateClient(client: ClientModel): Observable<any> {
+    return this.http.put(
+      `${environment.baseUrl}/clients`,
+      client,
+      { headers: this.headers }
+    );
+  }
+
+  deleteClient(uuid: string): Observable<any> {
+    return this.http.delete(
+      `${environment.baseUrl}/clients/${uuid}`,
+      { headers: this.headers }
+    );
   }
 
 }

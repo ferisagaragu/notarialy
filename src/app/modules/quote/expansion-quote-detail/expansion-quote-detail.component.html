@@ -1,0 +1,159 @@
+<div class="row mb-3">
+  <div class="col-12">
+    <em>
+      Estos datos son, los que elegiste para tu presupuesto.
+      Si no estas de acuerdo con alguno de ellos, puedes regresar
+      al meno principal <em class="mdi mdi-home" [routerLink]="['/dashboard']"></em>
+      y corregirlos.
+    </em>
+  </div>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <em class="mdi mdi-domain mdi-18px mdi-input"></em>
+        <span class="ml-2 m-title">Compañía</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="row">
+      <div class="col-1">
+        <strong>
+          Logo
+        </strong>
+      </div>
+
+      <div class="col-11">
+        <img alt="company-logo" width="36" [src]="company.logoUrl">
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-1">
+        <strong>
+          Nombre
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ company.name }}
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-1">
+        <strong>
+          Eslogan
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ company.slogan }}
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-1">
+        <strong>
+          Titulo
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ company.title }}
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <em class="mdi mdi-clipboard-account mdi-18px mdi-input"></em>
+        <span class="ml-2 m-title">Cliente</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="row">
+      <div class="col-1">
+        <strong>
+          Nombre
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ client.name }} {{ client.surname }} {{ client.motherSurname }}
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-1">
+        <strong>
+          Domicilio
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ client.address }}
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-1">
+        <strong>
+          Teléfono
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ client.phoneNumber }}
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <em class="mdi mdi-account-circle mdi-18px mdi-input"></em>
+        <span class="ml-2 m-title">Mis Datos</span>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="row">
+      <div class="col-1">
+        <strong>
+          Nombre
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ user.name }} {{ user.surname }} {{ user.motherSurname }}
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-1">
+        <strong>
+          Teléfono
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ user.phoneNumber }}
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-1">
+        <strong>
+          Correo
+        </strong>
+      </div>
+
+      <div class="col-11">
+        {{ user.email }}
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

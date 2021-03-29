@@ -1,0 +1,84 @@
+<mat-card>
+  <div class="row card-height">
+    <div class="col-2 text-center mt-2">
+      <em
+        class="mdi mdi-account-circle mdi-36px pointer"
+        [ngStyle]="{ color: client.color }"
+      >
+      </em>
+    </div>
+
+    <div class="col-8 normal-cursor">
+      <div
+        [matTooltip]="getClientName()"
+        [matTooltipDisabled]="this.getClientName().length < 26"
+      >
+        {{ getClientName() | slice:0:26 }}
+        {{ this.getClientName().length > 26 ? '...' : '' }}
+      </div>
+
+      <div class="mt-2 title normal-cursor">
+        <em>
+          {{ client.phoneNumber }}
+        </em>
+      </div>
+
+      <div class="normal-cursor text-center mt-3 mb-1">
+        <button
+          mat-stroked-button
+          class="pt-2"
+          matTooltip="Ver la ubicación del cliente"
+          color="accent"
+          (click)="viewAddress()"
+        >
+          <em class="mdi mdi-map mdi-36px"></em>
+        </button>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div
+        matRipple
+        class="options-button text-center pointer"
+        [matMenuTriggerFor]="menu"
+        [matTooltipDisabled]="client.delete"
+        matTooltip="No se puede eliminar este cliente por que esta siendo utilizada en un presupuesto"
+      >
+        <em class="mdi mdi-dots-vertical"></em>
+      </div>
+
+      <mat-menu #menu="matMenu">
+        <button
+          mat-menu-item
+          (click)="updateClient()"
+        >
+          <div class="row">
+            <div class="col-6">
+              Editar
+            </div>
+
+            <div class="col-6 text-right">
+              <em class="mdi mdi-pencil"></em>
+            </div>
+          </div>
+        </button>
+
+        <button
+          mat-menu-item
+          [disabled]="!client.delete"
+          (click)="deleteClient()"
+        >
+          <div class="row">
+            <div class="col-6">
+              Eliminar
+            </div>
+
+            <div class="col-6 text-right">
+              <em class="mdi mdi-trash-can"></em>
+            </div>
+          </div>
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+</mat-card>

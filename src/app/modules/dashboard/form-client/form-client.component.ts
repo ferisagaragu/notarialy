@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AddressModel } from '../../../core/models/address.model';
 import { ClientService } from '../../../core/http/client.service';
 import { ClientModel } from '../../../core/models/client.model';
 import { MatStepper } from '@angular/material/stepper';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { CLIENT_FORM_DIALOG } from '../../../core/constant/dialog-ids.constant';
 
 @Component({
   selector: 'app-form-client',
@@ -31,10 +33,12 @@ export class FormClientComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private clientService: ClientService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data: ClientModel
   ) {
-    this.lat = 20.4618145;
-    this.lng = -103.5118282;
+    this.lat = data ? data.lat : 20.4618145;
+    this.lng = data ? data.lng : -103.5118282;
     this.clientSelected = false;
     this.saveClient = new EventEmitter();
   }
@@ -46,6 +50,11 @@ export class FormClientComponent implements OnInit {
 
   save(): void {
     if (this.form.invalid) {
+      return;
+    }
+
+    if (this.data) {
+      this.update();
       return;
     }
 
@@ -92,6 +101,12 @@ export class FormClientComponent implements OnInit {
         this.form.enable();
       }
     );
+  }
+
+  onCancel() {
+    this.dialog
+      .getDialogById(CLIENT_FORM_DIALOG)
+      .close();
   }
 
   onSelectAddress(address: AddressModel): void {
@@ -143,14 +158,40 @@ export class FormClientComponent implements OnInit {
     }
   }
 
+  private update(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
+    this.load = true;
+    this.form.disable();
+
+    this.clientService.updateClient({
+      ...this.form.value,
+      uuid: this.data.uuid,
+      address: this.address.formatted,
+      lat: this.address.lat,
+      lng: this.address.lng
+    }).subscribe(resp => {
+      console.log('si sirve');
+      this.load = false;
+      this.form.enable();
+      this.dialog.getDialogById(CLIENT_FORM_DIALOG).close('update');
+    }, ({ error }) => {
+      this.clientMessageError = error.message;
+      this.load = false;
+      this.form.enable();
+    });
+  }
+
   private createForm(): void {
     this.form = this.formBuilder.group({
-      client: [{ value: '', disabled: true }],
-      name: ['', Validators.required],
-      surname: ['', Validators.required],
-      motherSurname: ['', Validators.required],
+      client: [{value: '', disabled: true}],
+      name: [this.data ? this.data.name : '', Validators.required],
+      surname: [this.data ? this.data.surname : '', Validators.required],
+      motherSurname: [this.data ? this.data.motherSurname : '', Validators.required],
       phoneNumber: [
-        '',
+        this.data ? this.data.phoneNumber : '',
         Validators.compose([
           Validators.required,
           Validators.pattern(
@@ -161,16 +202,18 @@ export class FormClientComponent implements OnInit {
       address: ['', Validators.required]
     });
 
-    this.form.get('client').valueChanges.subscribe((resp) => {
-      if (resp) {
-        this.filteredClients = this.clients.filter(
-          company => `${company.name} ${company.surname} ${company.motherSurname}`
-            .toLocaleLowerCase().includes(resp.toLocaleLowerCase())
-        );
-      } else {
-        this.filteredClients = this.clients;
-      }
-    });
+    if (this.data) {
+      this.form.get('client').valueChanges.subscribe((resp) => {
+        if (resp) {
+          this.filteredClients = this.clients.filter(
+            company => `${company.name} ${company.surname} ${company.motherSurname}`
+              .toLocaleLowerCase().includes(resp.toLocaleLowerCase())
+          );
+        } else {
+          this.filteredClients = this.clients;
+        }
+      });
+    }
   }
 
   private findAllClients(): void {

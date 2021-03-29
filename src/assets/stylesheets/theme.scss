@@ -13,9 +13,21 @@ $my-theme: mat-light-theme($my-primary, $my-accent);
   src: url(~src/assets/fonts/HachiMaruPop-Regular.ttf)
 }
 
+.app-name-font {
+  font-family: 'HachiMaruPop', sans-serif;
+}
+
 .app-name {
   font-family: 'HachiMaruPop', sans-serif;
-  color: #2196F3;
+  color: #FFFFFF;
+  font-size: 24px;
+}
+
+.app-name-dark {
+  font-family: 'HachiMaruPop', sans-serif;
+  color: #3F51B5;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .mat-icon.material-icons.ng-star-inserted {
@@ -65,4 +77,39 @@ $my-theme: mat-light-theme($my-primary, $my-accent);
 
 .pointer {
   cursor: pointer;
+}
+
+.normal-cursor {
+  cursor: default;
+}
+
+.mat-spinner {
+  margin:0 auto;
+}
+
+.options-button {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  padding: 2px;
+  margin-left: 4px;
+}
+
+.title {
+  color: #E91E63;
+}
+
+.scroll {
+  overflow: auto;
+}
+
+body::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  right: -5px;
+  background: transparent !important;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: rgba(158, 158, 158, 0.8);
 }

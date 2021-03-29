@@ -9,31 +9,36 @@
       </em>
     </div>
 
-    <div class="col-8">
-      <div>
-        {{ quote.client.name }} {{ quote.client.surname }} {{ quote.client.motherSurname }}
+    <div class="col-8 normal-cursor">
+      <div [matTooltip]="this.getClientName()">
+        {{ this.getClientName() | slice:0:26 }}
+        {{ this.getClientName().length > 26 ? '...' : '' }}
       </div>
 
       <div>
         {{ quote.createDate | dateFormat }}
       </div>
 
-      <div>
-        {{ quote.workforce  | money }}
+      <div class="title">
+        <em>{{ quote.workforce  | money }}</em>
+      </div>
+
+      <div class="title">
+        <em>{{ quote.works.length }} artículos</em>
       </div>
     </div>
 
     <div class="col-2">
       <div
         matRipple
-        class="options-button text-center"
+        class="options-button text-center pointer"
         [matMenuTriggerFor]="menu"
       >
         <em class="mdi mdi-dots-vertical"></em>
       </div>
 
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="updateQuote()">
           <div class="row">
             <div class="col-6">
               Editar
@@ -45,7 +50,7 @@
           </div>
         </button>
 
-        <button mat-menu-item>
+        <button mat-menu-item (click)="deleteQuote()">
           <div class="row">
             <div class="col-6">
               Eliminar

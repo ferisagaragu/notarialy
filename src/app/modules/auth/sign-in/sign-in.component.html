@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+  <mat-card class="col-5 p-4 text-center">
+    <span class="app-name-dark">
+      Notarialy
+    </span>
+
+    <br>
+
+    <button
+      mat-stroked-button
+      class="mt-5 mb-2 microsoft-button"
+      [disabled]="loadOutlook || loadGoogle"
+      (click)="signInWhitCode($event, 'Outlook')"
+    >
+      <em *ngIf="!loadOutlook" class="mdi mdi-microsoft"></em>
+      <em *ngIf="loadOutlook" class="mdi mdi-loading mdi-spin"></em>
+      Iniciar sesión con Outlook
+    </button>
+
+    <br>ó<br>
+
+    <button
+      mat-stroked-button
+      class="mt-2 mb-2 google-button"
+      [disabled]="loadOutlook || loadGoogle"
+      (click)="signInWhitCode($event, 'Google')"
+    >
+      <em *ngIf="!loadGoogle" class="mdi mdi-google"></em>
+      <em *ngIf="loadGoogle" class="mdi mdi-loading mdi-spin"></em>
+      Iniciar sesión con Google
+    </button>
+  </mat-card>
+</div>

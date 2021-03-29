@@ -1,0 +1,104 @@
+<mat-tab-group>
+  <mat-tab label="Mis contratos" [disabled]="load">
+    <div class="container mt-5" [class.load-height]="load">
+      <button
+        mat-fab
+        class="quote-button-position"
+        color="accent"
+        [disabled]="load"
+        (click)="openDialog()"
+      >
+        <mat-icon class="quote-button-icon-position">
+          <em class="mdi mdi-note-plus mdi-26px"></em>
+        </mat-icon>
+      </button>
+
+      <div *ngIf="load" class="row">
+        <div class="col-12">
+          <mat-spinner
+            [diameter]="40"
+            [strokeWidth]="3"
+            color="accent"
+          >
+          </mat-spinner>
+        </div>
+      </div>
+
+      <div *ngIf="!load" class="row">
+        <div *ngFor="let quote of quotes" class="col-4 mb-3">
+          <app-item-quote [quote]="quote" (onChange)="reloadAll()">
+          </app-item-quote>
+        </div>
+
+        <div *ngIf="quotes.length === 0" class="col-12">
+          <em>
+            Aún no tienes presupuestos registrados.
+            Añade nuevos presupuestos dando clic en
+            <em class="mdi mdi-note-plus"></em>
+            para crear tu primer presupuesto.
+          </em>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Mis compañías" [disabled]="load">
+    <div class="container mt-5" [class.load-height]="load">
+      <div *ngIf="load" class="row">
+        <div class="col-12">
+          <mat-spinner
+            [diameter]="40"
+            [strokeWidth]="3"
+            color="accent"
+          >
+          </mat-spinner>
+        </div>
+      </div>
+
+      <div *ngIf="!load" class="row">
+        <div *ngFor="let company of companies" class="col-4 mb-3">
+          <app-item-company [company]="company" (onChange)="reloadAll()">
+          </app-item-company>
+        </div>
+
+        <div *ngIf="companies.length === 0" class="col-12">
+          <em>
+            Aún no tienes clientes registrados. Crea
+            algunos presupuestos y aquí podrás ver
+            los clientes que participan en ellos.
+          </em>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Mis clientes" [disabled]="load">
+    <div class="container mt-5" [class.load-height]="load">
+      <div *ngIf="load" class="row">
+        <div class="col-12">
+          <mat-spinner
+            [diameter]="40"
+            [strokeWidth]="3"
+            color="accent"
+          >
+          </mat-spinner>
+        </div>
+      </div>
+
+      <div *ngIf="!load" class="row">
+        <div *ngFor="let client of clients" class="col-4 mb-3">
+          <app-item-client [client]="client" (onChange)="reloadAll()">
+          </app-item-client>
+        </div>
+
+        <div *ngIf="companies.length === 0" class="col-12">
+          <em>
+            Aún no tienes clientes registrados. Crea
+            algunos presupuestos y aquí podrás ver
+            los clientes que participan en ellos.
+          </em>
+        </div>
+      </div>
+    </div>
+  </mat-tab>
+</mat-tab-group>

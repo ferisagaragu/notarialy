@@ -6,6 +6,7 @@ export class CompanyModel {
   title: string;
   logoUrl: string;
   color: string;
+  delete: boolean;
   userUuid: string;
 
   constructor(data: CompanyModel | any) {

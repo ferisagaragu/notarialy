@@ -14,6 +14,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
@@ -26,6 +29,9 @@ import { DATE_FORMAT } from '../core/formats/date.format';
 import { MoneyPipe } from '../core/pipes/money.pipe';
 import { DateFormatPipe } from '../core/pipes/date-format.pipe';
 import { MatMenuModule } from '@angular/material/menu';
+import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
+import { InputFileComponent } from './input-file/input-file.component';
+import { GoogleMapViewerDirective } from '../core/directives/google-map-viewer.directive';
 
 @NgModule({
   providers: [
@@ -43,8 +49,11 @@ import { MatMenuModule } from '@angular/material/menu';
     GoogleMapsSearchDirective,
     GoogleMapDirective,
     InputMaskDirective,
+    GoogleMapViewerDirective,
     MoneyPipe,
-    DateFormatPipe
+    DateFormatPipe,
+    AlertDialogComponent,
+    InputFileComponent
   ],
   imports: [
     CommonModule,
@@ -63,7 +72,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatRippleModule,
     MatMenuModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule
   ],
   exports: [
     ReactiveFormsModule,
@@ -82,12 +94,18 @@ import { MatMenuModule } from '@angular/material/menu';
     MatMenuModule,
     MatExpansionModule,
     MatSelectModule,
+    MatTabsModule,
+    MatProgressSpinnerModule,
+    MatTooltipModule,
     AlertComponent,
     GoogleMapsSearchDirective,
     GoogleMapDirective,
     InputMaskDirective,
+    GoogleMapViewerDirective,
     MoneyPipe,
-    DateFormatPipe
+    DateFormatPipe,
+    AlertDialogComponent,
+    InputFileComponent
   ]
 })
 export class SharedModule { }

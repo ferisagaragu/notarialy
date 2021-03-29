@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-2">
+    <img class="user-photo" alt="user photo" [src]="user.photo">
+  </div>
+
+  <div class="col-10">
+    Hola
+    <em>
+      {{ user.name }}
+      {{ user.surname }}
+      {{ user.motherSurname }}
+    </em>
+    antes de comenzar a crear presupuestos en <b class="app-name-font">Norialy</b>
+    es necesario que nos confirmes tu número telefónico
+  </div>
+
+  <div class="col-2"></div>
+
+  <div class="col-10 mt-4 text-right">
+    <mat-form-field class="w-100" appearance="outline">
+      <mat-label>Número Telefónico</mat-label>
+
+      <input
+        matInput
+        appInputMask
+        required
+        placeholder="99-99-99-99-99"
+        mask="99-99-99-99-99"
+        autocomplete="off"
+        [formControl]="phoneNumber"
+      >
+
+      <mat-error>
+        Es necesario que se sepa tu número telefónico
+        para que tus clientes puedan contactarte
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-stroked-button
+      class="mt-3"
+      color="accent"
+      (click)="save()"
+    >
+      ¡Listo!
+      <em class="mdi mdi-hand-okay"></em>
+      <!--<em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>-->
+    </button>
+  </div>
+</div>

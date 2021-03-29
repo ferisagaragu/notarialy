@@ -1,7 +1,7 @@
-<form [formGroup]="form" (ngSubmit)="save()">
-  <h5>Si ya tienes una compañía y la quieres usar en este presupuesto, puedes seleccionarla</h5>
+<form [class.p-4]="data" [formGroup]="form" (ngSubmit)="save()">
+  <h5 *ngIf="!data">Si ya tienes una compañía y la quieres usar en este presupuesto, puedes seleccionarla</h5>
 
-  <mat-form-field class="w-100" appearance="outline">
+  <mat-form-field *ngIf="!data" class="w-100" appearance="outline">
     <mat-label>Tus compañías</mat-label>
 
     <mat-icon matSuffix>
@@ -28,14 +28,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <mat-form-field class="w-50 pr-3" appearance="outline">
-    <mat-label>Logo</mat-label>
-    <input
-      matInput
-      placeholder="Last name, First name"
-      formControlName="logoUrl"
-    >
-  </mat-form-field>
+  <app-input-file formControlName="logoUrl"></app-input-file>
 
   <mat-form-field class="w-50" appearance="outline">
     <mat-label>Nombre</mat-label>
@@ -79,7 +72,31 @@
     [message]="companyMessageError"
   ></app-alert>
 
-  <div class="text-right">
+  <div *ngIf="data" class="text-right">
+    <button
+      mat-stroked-button
+      class="mr-2"
+      color="accent"
+      type="button"
+      [disabled]="load"
+      (click)="close()"
+    >
+      Cancelar
+      <em class="mdi mdi-close"></em>
+    </button>
+
+    <button
+      mat-stroked-button
+      color="accent"
+      [disabled]="load"
+    >
+      Actualizar
+      <em *ngIf="!load" class="mdi mdi-hand-okay"></em>
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+    </button>
+  </div>
+
+  <div *ngIf="!data" class="text-right">
     <button
       mat-stroked-button
       color="accent"

@@ -11,8 +11,8 @@ import { QuoteModel } from '../models/quote.model';
 })
 export class QuoteService extends HttpService {
 
-  constructor(public http: HttpClient) {
-    super(http);
+  constructor(private http: HttpClient) {
+    super();
   }
 
   findQuoteByUuid(uuid: string): Observable<QuoteModel> {
@@ -31,6 +31,16 @@ export class QuoteService extends HttpService {
     );
   }
 
+  generatePdf(quoteUUID: string): Observable<Blob> {
+    return this.http.get(
+      `${environment.baseUrl}/quotes/generate-pdf/${quoteUUID}`,
+      {
+        responseType: 'blob',
+        headers: this.headers
+      }
+    )
+  }
+
   createQuote(quote: any): Observable<QuoteModel> {
     return this.http.post(
       `${environment.baseUrl}/quotes`,
@@ -41,14 +51,21 @@ export class QuoteService extends HttpService {
     );
   }
 
-  generatePdf(quoteUUID: string): Observable<Blob> {
-    return this.http.get(
-      `${environment.baseUrl}/quotes/generate-pdf/${quoteUUID}`,
-      {
-        responseType: 'blob',
-        headers: this.headers
-      }
-    )
+  updateQuote(quote: any): Observable<QuoteModel> {
+    return this.http.put(
+      `${environment.baseUrl}/quotes`,
+      quote,
+      { headers: this.headers }
+    ).pipe(
+      map((resp: any) => new QuoteModel(resp.data))
+    );
+  }
+
+  deleteQuote(uuid: string): Observable<any> {
+    return this.http.delete(
+      `${environment.baseUrl}/quotes/${uuid}`,
+      { headers: this.headers }
+    );
   }
 
 }
