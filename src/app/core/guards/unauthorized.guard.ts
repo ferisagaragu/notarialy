@@ -20,7 +20,13 @@ export class UnauthorizedGuard implements CanActivate {
   ): Observable<boolean> {
     return this.sessionService
       .checkSession()
-      .pipe(map((resp: boolean) => !resp));
+      .pipe(map((resp: boolean) => {
+        if (resp) {
+          this.router.navigate(['dashboard'])
+        }
+
+        return !resp;
+      }));
   }
 
 }

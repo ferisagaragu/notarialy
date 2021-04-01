@@ -5,8 +5,8 @@ import { ClientModel } from '../../../core/models/client.model';
 import { ViewerMapComponent } from '../viewer-map/viewer-map.component';
 import { CLIENT_FORM_DIALOG, VIEWER_MAP_DIALOG } from '../../../core/constant/dialog-ids.constant';
 import { ClientService } from '../../../core/http/client.service';
-import { FormCompanyComponent } from '../form-company/form-company.component';
 import { FormClientComponent } from '../form-client/form-client.component';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-item-client',
@@ -21,7 +21,8 @@ export class ItemClientComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private swal: SweetAlert2Service,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private deviceService: DeviceDetectorService
   ) {
     this.onChange = new EventEmitter<void>();
   }
@@ -47,8 +48,9 @@ export class ItemClientComponent implements OnInit {
         id: CLIENT_FORM_DIALOG,
         disableClose: true,
         data: this.client,
-        width: '75%',
-        height: '75%'
+        height: this.deviceService.isMobile() ? '100%' : '75%',
+        width: this.deviceService.isMobile() ? '100%' : '75%',
+        maxWidth: this.deviceService.isMobile() ? 'none' : '80vw'
       }
     );
 

@@ -7,6 +7,7 @@ import { ClientModel } from '../../../core/models/client.model';
 import { MatStepper } from '@angular/material/stepper';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CLIENT_FORM_DIALOG } from '../../../core/constant/dialog-ids.constant';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-form-client',
@@ -27,6 +28,7 @@ export class FormClientComponent implements OnInit {
   clientMessageError: string;
   clientSelected: boolean;
   load: boolean;
+  mobile: boolean;
 
   private address: AddressModel;
 
@@ -35,12 +37,14 @@ export class FormClientComponent implements OnInit {
     private clientService: ClientService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private deviceService: DeviceDetectorService,
     @Inject(MAT_DIALOG_DATA) public data: ClientModel
   ) {
     this.lat = data ? data.lat : 20.4618145;
     this.lng = data ? data.lng : -103.5118282;
     this.clientSelected = false;
     this.saveClient = new EventEmitter();
+    this.mobile = deviceService.isMobile();
   }
 
   ngOnInit(): void {

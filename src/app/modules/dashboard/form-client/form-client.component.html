@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="save()" [class.p-4]="data">
+<form [formGroup]="form" (ngSubmit)="save()" [class.p-4]="data && !mobile">
   <mat-form-field *ngIf="!data" class="w-100" appearance="outline">
     <mat-label>Tus clientes</mat-label>
 

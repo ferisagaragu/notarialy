@@ -3,6 +3,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { Observable } from 'rxjs';
 import { AuthService } from '../http/auth.service';
 import { SessionService } from 'ng-urxnium';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,34 +20,17 @@ export class AuthorizedGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.sessionService.checkSession();
-    /*return new Observable<boolean>(observer => {
-      constant token = sessionStorage.getItem('token');
-      constant user = sessionStorage.getItem('user');
+    document.cookie = 'data=soy un dato;'
 
-      if (!token || !user) {
-        this.signOut(observer);
-      } else {
-        environment.token = token;
+    return this.sessionService.checkSession().pipe(
+      map(resp => {
+        if (!resp) {
+          this.router.navigate(['auth'])
+        }
 
-        this.authService.validateToken().subscribe(
-          resp => {
-            console.log(resp)
-
-            setInterval(() => {
-              console.log('funciona el back');
-            }, resp.data.session.expiration)
-
-            environment.token = token;
-            environment.user = new UserModel(JSON.parse(user));
-            observer.next(true);
-            this.authService.isSignIn.next(true);
-          }, () => {
-            this.signOut(observer);
-          }
-        );
-      }
-    });*/
+        return resp;
+      })
+    );
   }
 
 }
