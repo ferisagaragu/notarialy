@@ -20,7 +20,10 @@ export class TableWorkComponent implements OnInit {
   workforce: FormControl;
   moneyMask: any;
   works: Array<WorkModel>;
-  load: boolean;
+  disabled: boolean;
+  loadExport: boolean;
+  loadSave: boolean;
+  showWarning: boolean;
 
   constructor(
     private workService: WorkService,
@@ -29,7 +32,9 @@ export class TableWorkComponent implements OnInit {
   ) {
     this.moneyMask = { alias: 'pesos' };
     this.works = [];
-    this.load = false;
+    this.disabled = false;
+    this.loadExport = false;
+    this.loadSave = false;
   }
 
   ngOnInit(): void {
@@ -49,14 +54,21 @@ export class TableWorkComponent implements OnInit {
         isNew: true
       })
     );
+
+    this.showWarning = this.works.find(work => work.isNew)?.isNew;
+    this.quoteService.onWarning.next(this.showWarning);
   }
 
   saveWork(i: number, event: WorkModel): void {
     this.works[i] = event;
+    this.showWarning = this.works.find(work => work.isNew)?.isNew;
+    this.quoteService.onWarning.next(this.showWarning);
   }
 
   removeWork(i: number): void {
     this.works.splice(i, 1);
+    this.showWarning = this.works.find(work => work.isNew)?.isNew;
+    this.quoteService.onWarning.next(this.showWarning);
   }
 
   sumTotal(): number {
@@ -73,8 +85,14 @@ export class TableWorkComponent implements OnInit {
 
   save(isExport: boolean): void {
     const works = [];
-    this.load = true;
+    this.disabled = true;
     this.workforce.disable();
+
+    if (isExport) {
+      this.loadExport = true;
+    } else {
+      this.loadSave = true;
+    }
 
     this.works.forEach(work => {
       if (work.concept) {
@@ -98,7 +116,8 @@ export class TableWorkComponent implements OnInit {
         if (isExport) {
           this.exportPdf();
         } else {
-          this.load = false;
+          this.disabled = false;
+          this.loadSave = false;
           this.workforce.enable();
         }
 
@@ -108,7 +127,7 @@ export class TableWorkComponent implements OnInit {
           {
             duration: 5000,
           }
-        )
+        );
       }, error => {
         console.log(error);
       }
@@ -118,7 +137,8 @@ export class TableWorkComponent implements OnInit {
   private exportPdf(): void {
     this.quoteService.generatePdf(this.quote.uuid).subscribe(
       resp => {
-        this.load = false;
+        this.disabled = false;
+        this.loadExport = false;
         this.workforce.enable();
         window.open(URL.createObjectURL(resp));
       }, error => {

@@ -48,7 +48,7 @@
         <input
           matInput
           required
-          placeholder="Por que tirar, cuando puedes reparar!"
+          placeholder="1"
           formControlName="quantity"
           type="number"
         >
@@ -72,7 +72,7 @@
         <mat-label>Concepto</mat-label>
         <input
           matInput
-          placeholder="Por que tirar, cuando puedes reparar!"
+          placeholder="Tornillos Fantásticos"
           formControlName="concept"
           required
         >
@@ -80,13 +80,13 @@
     </div>
 
     <div class="col-2 text-center">
-      <mat-form-field class="w-100" appearance="outline">
+      <mat-form-field class="w-100" appearance="outline" floatLabel="always">
         <mat-label>Precio Unitario</mat-label>
         <input
           matInput
           appInputMask
           required
-          placeholder="Por que tirar, cuando puedes reparar!"
+          placeholder="100"
           formControlName="unitPrice"
           [mask]="moneyMask"
         >

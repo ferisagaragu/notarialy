@@ -3,7 +3,7 @@
     <button
       mat-mini-fab
       class="mat-mini-fab-success"
-      [disabled]="load"
+      [disabled]="disabled"
       (click)="addElement()"
     >
       <em class="mdi mdi-plus mdi-18px"></em>
@@ -37,7 +37,7 @@
       <app-form-work
         *ngFor="let work of works; let i = index;"
         [work]="work"
-        [disabled]="load"
+        [disabled]="disabled"
         (saveWork)="saveWork(i, $event)"
         (removeWork)="removeWork(i)"
       >
@@ -84,27 +84,43 @@
     </div>
   </div>
 
-  <div class="col-12 mt-5 text-right">
+  <div *ngIf="showWarning" class="mt-4">
+    <app-alert
+      type="warn"
+      [message]="
+        'Hay artículos que aun no has confirmado, estos no se guardaran hasta' +
+        'que no los confirmes. recuerda que debes completar los datos de los artículos' +
+        ' y dar clic en el botón okay.'
+      "
+    >
+    </app-alert>
+  </div>
+
+  <div
+    class="col-12 text-right"
+    [class.mt-4]="showWarning"
+    [class.mt-5]="!showWarning"
+  >
     <button
       mat-stroked-button
       class="mr-2"
       color="accent"
-      [disabled]="load"
+      [disabled]="disabled"
       (click)="save(true)"
     >
-      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
-      <em *ngIf="!load" class="mdi mdi-file-pdf"></em>
+      <em *ngIf="loadExport" class="mdi mdi-loading mdi-spin"></em>
+      <em *ngIf="!loadExport" class="mdi mdi-file-pdf"></em>
       Guardar y exportar
     </button>
 
     <button
       mat-stroked-button
       color="accent"
-      [disabled]="load"
+      [disabled]="disabled"
       (click)="save(false)"
     >
-      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
-      <em *ngIf="!load" class="mdi mdi-content-save"></em>
+      <em *ngIf="loadSave" class="mdi mdi-loading mdi-spin"></em>
+      <em *ngIf="!loadSave" class="mdi mdi-content-save"></em>
       Guardar
     </button>
   </div>

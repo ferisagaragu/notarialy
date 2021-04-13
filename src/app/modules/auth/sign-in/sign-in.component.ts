@@ -50,11 +50,14 @@ export class SignInComponent {
     )
   }
 
-  private alertError(error: string): void {
+  private alertError(message: string): void {
     this.swal.fire({
       icon: 'error',
-      title: 'Upps',
-      text: error
+      title: message,
+      text:
+        'Hubo un error al iniciar sesión. ' +
+        'Lamentamos los inconvenientes inténtalo mas tarde.',
+      theme: 'material'
     });
   }
 

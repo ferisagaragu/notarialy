@@ -8,6 +8,7 @@ import { MatStepper } from '@angular/material/stepper';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { CLIENT_FORM_DIALOG } from '../../../core/constant/dialog-ids.constant';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { SweetAlert2Service } from 'ng-urxnium';
 
 @Component({
   selector: 'app-form-client',
@@ -38,6 +39,7 @@ export class FormClientComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
     private deviceService: DeviceDetectorService,
+    private swal: SweetAlert2Service,
     @Inject(MAT_DIALOG_DATA) public data: ClientModel
   ) {
     this.lat = data ? data.lat : 20.4618145;
@@ -226,7 +228,16 @@ export class FormClientComponent implements OnInit {
         this.clients = resp;
         this.filteredClients = resp;
         this.form.get('client').enable();
-      }, error => { }
+      }, ({ error }) => {
+        this.swal.fire({
+          icon: 'error',
+          title: error.message,
+          text:
+            'Hubo un problema al cargar los clientes. ' +
+            'Lamentamos los inconvenientes inténtalo mas tarde.',
+          theme: 'material'
+        });
+      }
     );
   }
 

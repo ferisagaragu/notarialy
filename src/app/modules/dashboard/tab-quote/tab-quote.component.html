@@ -1,6 +1,30 @@
-<mat-tab-group selectedIndex="2">
+<mat-tab-group>
   <mat-tab label="Mis contratos" [disabled]="load">
     <div class="container mt-5" [class.load-height]="load">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Buscar</mat-label>
+
+        <mat-icon matSuffix>
+          <em *ngIf="!inputQuoteSearch.value" class="mdi mdi-magnify mdi-26px mdi-input"></em>
+
+          <em
+            matRipple
+            *ngIf="inputQuoteSearch.value"
+            class="mdi mdi-close mdi-26px mdi-input"
+            (click)="onKeyUpQuote(inputQuoteSearch, true)"
+          >
+          </em>
+        </mat-icon>
+
+        <input
+          #inputQuoteSearch
+          matInput
+          placeholder="Busca tu presupuestos por nombre de cliente, fecha o cantidad ganada"
+          [disabled]="quotes.length === 0"
+          (keyup)="onKeyUpQuote(inputQuoteSearch, false)"
+        >
+      </mat-form-field>
+
       <button
         mat-fab
         class="quote-button-position"
@@ -24,7 +48,7 @@
         </div>
       </div>
 
-      <div *ngIf="!load" class="row">
+      <div *ngIf="!load && !inputQuoteSearch.value" class="row">
         <div *ngFor="let quote of quotes" class="col-md-4 col-sm-4 mb-3">
           <app-item-quote [quote]="quote" (onChange)="reloadAll()">
           </app-item-quote>
@@ -39,11 +63,48 @@
           </em>
         </div>
       </div>
+
+      <div *ngIf="quotesSearch.length > 0" class="row">
+        <div *ngFor="let quote of quotesSearch" class="col-md-4 col-sm-4 mb-3">
+          <app-item-quote [quote]="quote" (onChange)="reloadAll()">
+          </app-item-quote>
+        </div>
+      </div>
+
+      <em *ngIf="inputQuoteSearch.value && quotesSearch.length === 0">
+        No encontramos presupuestos con el nombre introducido
+        <em class="mdi mdi-emoticon-sad-outline"></em>,
+        intenta con otro nombre, fecha o cantidad ganada
+      </em>
     </div>
   </mat-tab>
 
   <mat-tab label="Mis compañías" [disabled]="load">
     <div class="container mt-5" [class.load-height]="load">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Buscar</mat-label>
+
+        <mat-icon matSuffix>
+          <em *ngIf="!inputCompanySearch.value" class="mdi mdi-magnify mdi-26px mdi-input"></em>
+
+          <em
+            matRipple
+            *ngIf="inputCompanySearch.value"
+            class="mdi mdi-close mdi-26px mdi-input"
+            (click)="onKeyUpCompany(inputCompanySearch, true)"
+          >
+          </em>
+        </mat-icon>
+
+        <input
+          #inputCompanySearch
+          matInput
+          placeholder="Busca tu presupuestos por nombre de cliente, fecha o cantidad ganada"
+          [disabled]="quotes.length === 0"
+          (keyup)="onKeyUpCompany(inputCompanySearch, false)"
+        >
+      </mat-form-field>
+
       <div *ngIf="load" class="row">
         <div class="col-12">
           <mat-spinner
@@ -55,7 +116,7 @@
         </div>
       </div>
 
-      <div *ngIf="!load" class="row">
+      <div *ngIf="!load && !inputCompanySearch.value" class="row">
         <div *ngFor="let company of companies" class="col-md-4 col-sm-4 mb-3">
           <app-item-company [company]="company" (onChange)="reloadAll()">
           </app-item-company>
@@ -63,17 +124,55 @@
 
         <div *ngIf="companies.length === 0" class="col-12">
           <em>
-            Aún no tienes clientes registrados. Crea
+            Aún no tienes compañías registradas. Crea
             algunos presupuestos y aquí podrás ver
-            los clientes que participan en ellos.
+            las compañías que participan en ellos.
           </em>
         </div>
       </div>
+
+      <div *ngIf="companiesSearch.length > 0" class="row">
+        <div *ngFor="let company of companiesSearch" class="col-md-4 col-sm-4 mb-3">
+          <app-item-company [company]="company" (onChange)="reloadAll()">
+          </app-item-company>
+        </div>
+      </div>
+
+      <em *ngIf="inputCompanySearch.value && companiesSearch.length === 0">
+        No encontramos compañías con el nombre introducido
+        <em class="mdi mdi-emoticon-sad-outline"></em>,
+        intenta con otro nombre de compañía, slogan o titulo.
+      </em>
     </div>
   </mat-tab>
 
   <mat-tab label="Mis clientes" [disabled]="load">
     <div class="container mt-5" [class.load-height]="load">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Buscar</mat-label>
+
+        <mat-icon matSuffix>
+          <em *ngIf="!inputClientSearch.value" class="mdi mdi-magnify mdi-26px mdi-input"></em>
+
+          <em
+            matRipple
+            *ngIf="inputClientSearch.value"
+            class="mdi mdi-close mdi-26px mdi-input"
+            (click)="onKeyUpClient(inputClientSearch, true)"
+          >
+          </em>
+        </mat-icon>
+
+        <input
+          #inputClientSearch
+          matInput
+          placeholder="Busca tu presupuestos por nombre de cliente, fecha o cantidad ganada"
+          [disabled]="quotes.length === 0"
+          (keyup)="onKeyUpClient(inputClientSearch, false)"
+        >
+      </mat-form-field>
+
+
       <div *ngIf="load" class="row">
         <div class="col-12">
           <mat-spinner
@@ -85,13 +184,13 @@
         </div>
       </div>
 
-      <div *ngIf="!load" class="row">
+      <div *ngIf="!load && !inputClientSearch.value" class="row">
         <div *ngFor="let client of clients" class="col-md-4 col-sm-4 mb-3">
           <app-item-client [client]="client" (onChange)="reloadAll()">
           </app-item-client>
         </div>
 
-        <div *ngIf="companies.length === 0" class="col-12">
+        <div *ngIf="clients.length === 0" class="col-12">
           <em>
             Aún no tienes clientes registrados. Crea
             algunos presupuestos y aquí podrás ver
@@ -99,6 +198,23 @@
           </em>
         </div>
       </div>
+
+      <div *ngIf="clientsSearch.length > 0" class="row">
+        <div *ngFor="let client of clientsSearch" class="col-md-4 col-sm-4 mb-3">
+          <app-item-client [client]="client" (onChange)="reloadAll()">
+          </app-item-client>
+        </div>
+      </div>
+
+      <em *ngIf="inputClientSearch.value && clientsSearch.length === 0">
+        No encontramos clientes con el nombre introducido
+        <em class="mdi mdi-emoticon-sad-outline"></em>,
+        intenta con otro nombre o teléfono.
+      </em>
     </div>
+  </mat-tab>
+
+  <mat-tab label="Mi Perfil">
+
   </mat-tab>
 </mat-tab-group>

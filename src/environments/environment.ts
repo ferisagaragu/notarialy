@@ -8,7 +8,7 @@ export const environment: EnvironmentInterface = {
   production: false,
   baseUrl: 'http://10.244.58.54:5000/rest',
   googleMapsUrl: 'https://maps.googleapis.com/maps/api/geocode',
-  logoIconDefault: 'http://10.244.111.222:6060/storages/e11b277c-b2e2-46dd-b75f-8e6778022d3c'
+  logoIconDefault: 'http://localhost:6060/storages/408de3b7-8375-41e0-bfda-921a1c3331d4'
 };
 
 /*

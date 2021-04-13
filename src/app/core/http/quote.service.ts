@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http-service.service';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
 import { QuoteModel } from '../models/quote.model';
@@ -11,8 +11,12 @@ import { QuoteModel } from '../models/quote.model';
 })
 export class QuoteService extends HttpService {
 
+  public onWarning: BehaviorSubject<boolean>;
+
   constructor(private http: HttpClient) {
     super();
+
+    this.onWarning = new BehaviorSubject(false);
   }
 
   findQuoteByUuid(uuid: string): Observable<QuoteModel> {

@@ -21,7 +21,6 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule, Ma
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { AlertComponent } from './alert/alert.component';
-
 import { GoogleMapsSearchDirective } from '../core/directives/google-maps-search.directive';
 import { GoogleMapDirective } from '../core/directives/google-map.directive';
 import { InputMaskDirective } from '../core/directives/input-mask.directive';
@@ -29,7 +28,6 @@ import { DATE_FORMAT } from '../core/formats/date.format';
 import { MoneyPipe } from '../core/pipes/money.pipe';
 import { DateFormatPipe } from '../core/pipes/date-format.pipe';
 import { MatMenuModule } from '@angular/material/menu';
-import { AlertDialogComponent } from './alert-dialog/alert-dialog.component';
 import { InputFileComponent } from './input-file/input-file.component';
 import { GoogleMapViewerDirective } from '../core/directives/google-map-viewer.directive';
 
@@ -52,7 +50,6 @@ import { GoogleMapViewerDirective } from '../core/directives/google-map-viewer.d
     GoogleMapViewerDirective,
     MoneyPipe,
     DateFormatPipe,
-    AlertDialogComponent,
     InputFileComponent
   ],
   imports: [
@@ -104,7 +101,6 @@ import { GoogleMapViewerDirective } from '../core/directives/google-map-viewer.d
     GoogleMapViewerDirective,
     MoneyPipe,
     DateFormatPipe,
-    AlertDialogComponent,
     InputFileComponent
   ]
 })

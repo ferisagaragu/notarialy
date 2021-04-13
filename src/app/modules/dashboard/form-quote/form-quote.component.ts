@@ -8,7 +8,7 @@ import { CompanyService } from '../../../core/http/company.service';
 import { ClientService } from '../../../core/http/client.service';
 import { CompanyModel } from '../../../core/models/company.model';
 import { ClientModel } from '../../../core/models/client.model';
-import { AlertDialogComponent } from '../../../shared/alert-dialog/alert-dialog.component';
+import { SweetAlert2Service } from 'ng-urxnium';
 import * as moment from 'moment';
 
 @Component({
@@ -31,6 +31,7 @@ export class FormQuoteComponent implements OnInit {
     private quoteService: QuoteService,
     private companyService: CompanyService,
     private clientService: ClientService,
+    private swal: SweetAlert2Service,
     private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: QuoteModel
   ) {
@@ -100,14 +101,14 @@ export class FormQuoteComponent implements OnInit {
         this.companies = resp;
         this.form.get('companyUuid').setValue(this.data.company.uuid);
       }, ({ error }) => {
-        this.dialog.open(
-          AlertDialogComponent,
-          {
-            role: 'alertdialog',
-            width: '440px',
-            data: {type: 'error', message: error.message}
-          }
-        );
+        this.swal.fire({
+          icon: 'error',
+          title: error.message,
+          text:
+            'Hubo un problema al cargar las compañías. ' +
+            'Lamentamos los inconvenientes inténtalo mas tarde.',
+          theme: 'material'
+        });
       }
     )
   }
@@ -118,14 +119,14 @@ export class FormQuoteComponent implements OnInit {
         this.clients = resp;
         this.form.get('clientUuid').setValue(this.data.client.uuid);
       }, ({ error }) => {
-        this.dialog.open(
-          AlertDialogComponent,
-          {
-            role: 'alertdialog',
-            width: '440px',
-            data: { type: 'error', message: error.message }
-          }
-        );
+        this.swal.fire({
+          icon: 'error',
+          title: error.message,
+          text:
+            'Hubo un problema al cargar los clientes. ' +
+            'Lamentamos los inconvenientes inténtalo mas tarde.',
+          theme: 'material'
+        });
       }
     )
   }

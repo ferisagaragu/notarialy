@@ -42,18 +42,24 @@ export class ItemQuoteComponent {
 
   deleteQuote(): void {
     this.swal.fire({
-      icon: 'question',
+      icon: 'warning',
       title: '¿Estas seguro que quieres eliminar el presupuesto?',
-      text: 'Los datos se perderán permanentemente',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Eliminar',
-      showCancelButton: true
+      text: 'Los datos se perderán permanentemente.',
+      showCancelButton: true,
+      theme: 'material'
     }).subscribe(resp => {
       if (resp) {
         this.quoteService.deleteQuote(this.quote.uuid).subscribe(_ => {
           this.onChange.emit();
-        }, _ => {
-          console.log('no funciona');
+        }, ({ error }) => {
+          this.swal.fire({
+            icon: 'error',
+            title: error.message,
+            text:
+              'Hubo un error al eliminar el presupuesto. ' +
+              'Lamentamos los inconvenientes inténtalo mas tarde.',
+            theme: 'material'
+          });
         });
       }
     });

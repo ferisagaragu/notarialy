@@ -4,8 +4,8 @@ import { MatStepper } from '@angular/material/stepper';
 import { CompanyModel } from '../../../core/models/company.model';
 import { CompanyService } from '../../../core/http/company.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AlertDialogComponent } from '../../../shared/alert-dialog/alert-dialog.component';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { SweetAlert2Service } from 'ng-urxnium';
 
 @Component({
   selector: 'app-form-company',
@@ -29,6 +29,7 @@ export class FormCompanyComponent implements OnInit {
     private companyService: CompanyService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
+    private swal: SweetAlert2Service,
     @Inject(MAT_DIALOG_DATA) public data: CompanyModel
   ) {
     this.saveCompany = new EventEmitter();
@@ -172,14 +173,14 @@ export class FormCompanyComponent implements OnInit {
         this.filteredCompanies = resp;
         this.form.get('company').enable();
       }, ({ error }) => {
-        this.dialog.open(
-          AlertDialogComponent,
-          {
-            role: 'alertdialog',
-            width: '440px',
-            data: { type: 'error', message: error.message }
-          }
-        );
+        this.swal.fire({
+          icon: 'error',
+          title: error.message,
+          text:
+            'Hubo un problema al cargar las compañías. ' +
+            'Lamentamos los inconvenientes inténtalo mas tarde.',
+          theme: 'material'
+        });
       }
     );
   }

@@ -22,7 +22,7 @@ export class UnauthorizedGuard implements CanActivate {
       .checkSession()
       .pipe(map((resp: boolean) => {
         if (resp) {
-          this.router.navigate(['dashboard'])
+          this.router.navigate(['dashboard']);
         }
 
         return !resp;

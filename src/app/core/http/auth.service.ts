@@ -11,10 +11,12 @@ import { UserModel } from '../models/user.model';
 })
 export class AuthService extends HttpService {
 
-  public isSignIn: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public onSignIn: BehaviorSubject<boolean>;
 
   constructor(private http: HttpClient) {
     super();
+
+    this.onSignIn = new BehaviorSubject(false);
   }
 
   generateAuthenticationUrl(type: 'Outlook' | 'Google'): Observable<string> {
@@ -32,13 +34,6 @@ export class AuthService extends HttpService {
       `${environment.baseUrl}/auth/sign-in-form-code`,
       { code: decodeURIComponent(code), type }
     ).pipe(map((resp: any) => new UserModel(resp.data)));
-  }
-
-  validateToken(): Observable<any> {
-    return this.http.get(
-      `${environment.baseUrl}/auth/validate-token`,
-      { headers: this.headers }
-    );
   }
 
 }

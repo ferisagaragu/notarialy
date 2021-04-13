@@ -5,7 +5,6 @@ import { QuoteService } from '../../../core/http/quote.service';
 import { StepperQuoteComponent } from '../stepper-quote/stepper-quote.component';
 import { CompanyService } from '../../../core/http/company.service';
 import { CompanyModel } from '../../../core/models/company.model';
-import { AlertDialogComponent } from '../../../shared/alert-dialog/alert-dialog.component';
 import { FormTelephoneComponent } from '../form-telephone/form-telephone.component';
 import { SweetAlert2Service, SessionService } from 'ng-urxnium';
 import { ClientService } from '../../../core/http/client.service';
@@ -20,8 +19,11 @@ export class TabQuoteComponent implements OnInit {
 
   load: boolean;
   quotes: Array<QuoteModel>;
+  quotesSearch: Array<QuoteModel>;
   companies: Array<CompanyModel>;
+  companiesSearch: Array<CompanyModel>;
   clients: Array<ClientModel>;
+  clientsSearch: Array<ClientModel>;
 
   constructor(
     private dialog: MatDialog,
@@ -33,8 +35,11 @@ export class TabQuoteComponent implements OnInit {
   ) {
     this.load = true;
     this.quotes = [];
+    this.quotesSearch = [];
     this.companies = [];
+    this.companiesSearch = [];
     this.clients = [];
+    this.clientsSearch = [];
 
     this.showFormTelephone();
   }
@@ -64,6 +69,46 @@ export class TabQuoteComponent implements OnInit {
     this.findAllClients();
   }
 
+  onKeyUpQuote(inputQuoteSearch: HTMLInputElement, clean: boolean): void {
+    if (inputQuoteSearch.value && !clean) {
+      this.quotesSearch = this.quotes.filter(
+        quote => (`${quote.client.name} ${quote.client.surname} ${quote.client.motherSurname}` +
+          `${quote.workforce}${quote.createDate}`)
+            .toLowerCase()
+            .includes(inputQuoteSearch.value.toLowerCase())
+      );
+    } else {
+      this.quotesSearch = [];
+      inputQuoteSearch.value = '';
+    }
+  }
+
+  onKeyUpCompany(inputCompanySearch: HTMLInputElement, clean: boolean): void {
+    if (inputCompanySearch.value && !clean) {
+      this.companiesSearch = this.companies.filter(
+        company => `${company.name} ${company.slogan} ${company.title}`
+          .toLowerCase()
+          .includes(inputCompanySearch.value.toLowerCase())
+      );
+    } else {
+      this.companiesSearch = [];
+      inputCompanySearch.value = '';
+    }
+  }
+
+  onKeyUpClient(inputClientSearch: HTMLInputElement, clean: boolean): void {
+    if (inputClientSearch.value && !clean) {
+      this.clientsSearch = this.clients.filter(
+        client => `${client.name} ${client.phoneNumber}`
+          .toLowerCase()
+          .includes(inputClientSearch.value.toLowerCase())
+      );
+    } else {
+      this.clientsSearch = [];
+      inputClientSearch.value = '';
+    }
+  }
+
   private findAllQuotes(): void {
     this.load = true;
 
@@ -74,8 +119,11 @@ export class TabQuoteComponent implements OnInit {
       }, ({ error }) => {
         this.swal.fire({
           icon: 'error',
-          title: 'Upps',
-          text: error.message
+          title: error.message,
+          text:
+            'Hubo un problema al cargar los presupuestos. '+
+            'Lamentamos los inconvenientes inténtalo mas tarde.',
+          theme: 'material'
         });
 
         this.load = false;
@@ -90,15 +138,15 @@ export class TabQuoteComponent implements OnInit {
       resp => {
         this.companies = resp;
         this.load = false;
-      }, error => {
-        this.dialog.open(
-          AlertDialogComponent,
-          {
-            role: 'alertdialog',
-            width: '440px',
-            data: { type: 'error', message: error.message }
-          }
-        );
+      }, ({ error }) => {
+        this.swal.fire({
+          icon: 'error',
+          title: error.message,
+          text:
+            'Hubo un problema al cargar las compañías. '+
+            'Lamentamos los inconvenientes inténtalo mas tarde.',
+          theme: 'material'
+        });
 
         this.load = false;
       }
@@ -112,15 +160,15 @@ export class TabQuoteComponent implements OnInit {
       resp => {
         this.clients = resp;
         this.load = false;
-      }, error => {
-        this.dialog.open(
-          AlertDialogComponent,
-          {
-            role: 'alertdialog',
-            width: '440px',
-            data: { type: 'error', message: error.message }
-          }
-        );
+      }, ({ error }) => {
+        this.swal.fire({
+          icon: 'error',
+          title: error.message,
+          text:
+            'Hubo un problema al cargar los clientes. '+
+            'Lamentamos los inconvenientes inténtalo mas tarde.',
+          theme: 'material'
+        });
 
         this.load = false;
       }

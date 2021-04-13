@@ -1,4 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()" [class.p-4]="data && !mobile">
+  <h5 *ngIf="!data">Si ya tienes un cliente y lo quieres usar en este presupuesto, puedes seleccionarlo</h5>
+
   <mat-form-field *ngIf="!data" class="w-100" appearance="outline">
     <mat-label>Tus clientes</mat-label>
 
@@ -34,7 +36,7 @@
     <mat-label>Nombre</mat-label>
     <input
       matInput
-      placeholder="Last name, First name"
+      placeholder="Fernando Isaías"
       formControlName="name"
     >
 
@@ -45,7 +47,7 @@
     <mat-label>Apellido paterno</mat-label>
     <input
       matInput
-      placeholder="Last name, First name"
+      placeholder="García"
       formControlName="surname"
     >
 
@@ -60,7 +62,7 @@
     <mat-label>Apellido materno</mat-label>
     <input
       matInput
-      placeholder="Last name, First name"
+      placeholder="Aguirre"
       formControlName="motherSurname"
     >
 

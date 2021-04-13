@@ -13,7 +13,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   templateUrl: './item-client.component.html',
   styleUrls: ['./item-client.component.scss']
 })
-export class ItemClientComponent implements OnInit {
+export class ItemClientComponent {
 
   @Input() client: ClientModel;
   @Output() onChange: EventEmitter<void>;
@@ -26,8 +26,6 @@ export class ItemClientComponent implements OnInit {
   ) {
     this.onChange = new EventEmitter<void>();
   }
-
-  ngOnInit(): void { }
 
   viewAddress(): void {
     this.dialog.open(
@@ -62,13 +60,30 @@ export class ItemClientComponent implements OnInit {
   }
 
   deleteClient(): void {
-    this.clientService.deleteClient(this.client.uuid).subscribe(
-      _ => {
-        this.onChange.emit();
-      }, _ => {
-        console.log('no funciona');
+    this.swal.fire({
+      icon: 'warning',
+      title: '¿Estas seguro que quieres eliminar el cliente?',
+      text: 'Los datos se perderán permanentemente.',
+      showCancelButton: true,
+      theme: 'material'
+    }).subscribe(resp => {
+      if (resp) {
+        this.clientService.deleteClient(this.client.uuid).subscribe(
+          _ => {
+            this.onChange.emit();
+          }, ({ error }) => {
+            this.swal.fire({
+              icon: 'error',
+              title: error.message,
+              text:
+                'Hubo un error al eliminar el cliente. ' +
+                'Lamentamos los inconvenientes inténtalo mas tarde.',
+              theme: 'material'
+            });
+          }
+        );
       }
-    )
+    });
   }
 
   getClientName(): string {
