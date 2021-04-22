@@ -13,6 +13,7 @@ import { ItemCompanyComponent } from './item-company/item-company.component';
 import { FormTelephoneComponent } from './form-telephone/form-telephone.component';
 import { ItemClientComponent } from './item-client/item-client.component';
 import { ViewerMapComponent } from './viewer-map/viewer-map.component';
+import { FormUserComponent } from './form-user/form-user.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ViewerMapComponent } from './viewer-map/viewer-map.component';
     ItemCompanyComponent,
     FormTelephoneComponent,
     ItemClientComponent,
-    ViewerMapComponent
+    ViewerMapComponent,
+    FormUserComponent
   ],
   imports: [
     CommonModule,

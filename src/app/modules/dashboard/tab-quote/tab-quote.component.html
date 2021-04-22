@@ -49,7 +49,7 @@
       </div>
 
       <div *ngIf="!load && !inputQuoteSearch.value" class="row">
-        <div *ngFor="let quote of quotes" class="col-md-4 col-sm-4 mb-3">
+        <div *ngFor="let quote of quotes" class="col-md-4 col-sm-12 mb-3">
           <app-item-quote [quote]="quote" (onChange)="reloadAll()">
           </app-item-quote>
         </div>
@@ -65,7 +65,7 @@
       </div>
 
       <div *ngIf="quotesSearch.length > 0" class="row">
-        <div *ngFor="let quote of quotesSearch" class="col-md-4 col-sm-4 mb-3">
+        <div *ngFor="let quote of quotesSearch" class="col-md-4 col-sm-12 mb-3">
           <app-item-quote [quote]="quote" (onChange)="reloadAll()">
           </app-item-quote>
         </div>
@@ -117,7 +117,7 @@
       </div>
 
       <div *ngIf="!load && !inputCompanySearch.value" class="row">
-        <div *ngFor="let company of companies" class="col-md-4 col-sm-4 mb-3">
+        <div *ngFor="let company of companies" class="col-md-4 col-sm-12 mb-3">
           <app-item-company [company]="company" (onChange)="reloadAll()">
           </app-item-company>
         </div>
@@ -132,7 +132,7 @@
       </div>
 
       <div *ngIf="companiesSearch.length > 0" class="row">
-        <div *ngFor="let company of companiesSearch" class="col-md-4 col-sm-4 mb-3">
+        <div *ngFor="let company of companiesSearch" class="col-md-4 col-sm-12 mb-3">
           <app-item-company [company]="company" (onChange)="reloadAll()">
           </app-item-company>
         </div>
@@ -185,7 +185,7 @@
       </div>
 
       <div *ngIf="!load && !inputClientSearch.value" class="row">
-        <div *ngFor="let client of clients" class="col-md-4 col-sm-4 mb-3">
+        <div *ngFor="let client of clients" class="col-md-4 col-sm-12 mb-3">
           <app-item-client [client]="client" (onChange)="reloadAll()">
           </app-item-client>
         </div>
@@ -200,7 +200,7 @@
       </div>
 
       <div *ngIf="clientsSearch.length > 0" class="row">
-        <div *ngFor="let client of clientsSearch" class="col-md-4 col-sm-4 mb-3">
+        <div *ngFor="let client of clientsSearch" class="col-md-4 col-sm-12 mb-3">
           <app-item-client [client]="client" (onChange)="reloadAll()">
           </app-item-client>
         </div>
@@ -215,6 +215,6 @@
   </mat-tab>
 
   <mat-tab label="Mi Perfil">
-
+    <app-form-user></app-form-user>
   </mat-tab>
 </mat-tab-group>

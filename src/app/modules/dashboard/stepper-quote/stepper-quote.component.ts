@@ -29,7 +29,6 @@ export class StepperQuoteComponent implements OnInit {
       createDate: event.createDate.format(),
       workforce: convertMoneyToNumber(event.workforce)
     }).subscribe(resp => {
-      console.log(resp);
       this.dialog.closeAll();
     }, ({ error }) => {
 

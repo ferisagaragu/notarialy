@@ -19,7 +19,7 @@ export class UserService extends HttpService {
       `${environment.baseUrl}/users`,
       user,
       { headers: this.headers }
-    )
+    );
   }
 
 }

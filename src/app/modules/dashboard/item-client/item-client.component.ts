@@ -17,6 +17,7 @@ export class ItemClientComponent {
 
   @Input() client: ClientModel;
   @Output() onChange: EventEmitter<void>;
+  size: number;
 
   constructor(
     private dialog: MatDialog,
@@ -25,6 +26,7 @@ export class ItemClientComponent {
     private deviceService: DeviceDetectorService
   ) {
     this.onChange = new EventEmitter<void>();
+    this.size = window.innerWidth;
   }
 
   viewAddress(): void {
@@ -32,9 +34,11 @@ export class ItemClientComponent {
       ViewerMapComponent,
       {
         id: VIEWER_MAP_DIALOG,
-        width: '45%',
+        width: window.innerWidth < 700 ? '95%' : '50%',
         data: this.client,
-        disableClose: true
+        disableClose: true,
+        height: window.innerWidth < 700 ? '70%' : '68%',
+        maxWidth: window.innerWidth < 700 ? 'none' : '80vw'
       }
     )
   }
@@ -46,9 +50,9 @@ export class ItemClientComponent {
         id: CLIENT_FORM_DIALOG,
         disableClose: true,
         data: this.client,
-        height: this.deviceService.isMobile() ? '100%' : '75%',
-        width: this.deviceService.isMobile() ? '100%' : '75%',
-        maxWidth: this.deviceService.isMobile() ? 'none' : '80vw'
+        height: window.innerWidth < 700 ? '95%' : '75%',
+        width: window.innerWidth < 700 ? '95%' : '75%',
+        maxWidth: window.innerWidth < 700 ? 'none' : '80vw'
       }
     );
 

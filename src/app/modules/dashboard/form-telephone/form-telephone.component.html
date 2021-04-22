@@ -1,9 +1,9 @@
 <div class="row">
-  <div class="col-2">
+  <div class="col-3 col-md-2">
     <img class="user-photo" alt="user photo" [src]="user.photo">
   </div>
 
-  <div class="col-10">
+  <div class="col-9 col-md-10">
     Hola
     <em>
       {{ user.name }}
@@ -14,9 +14,9 @@
     es necesario que nos confirmes tu número telefónico
   </div>
 
-  <div class="col-2"></div>
+  <div class="col-3 col-md-2"></div>
 
-  <div class="col-10 mt-4 text-right">
+  <div class="col-9 col-md-10 mt-4 text-right">
     <mat-form-field class="w-100" appearance="outline">
       <mat-label>Número Telefónico</mat-label>
 
@@ -38,7 +38,18 @@
 
     <button
       mat-stroked-button
-      class="mt-3"
+      class="mt-3 mobile-not-show"
+      color="accent"
+      (click)="save()"
+    >
+      ¡Listo!
+      <em class="mdi mdi-hand-okay"></em>
+      <!--<em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>-->
+    </button>
+
+    <button
+      mat-stroked-button
+      class="mt-4 mobile-show"
       color="accent"
       (click)="save()"
     >

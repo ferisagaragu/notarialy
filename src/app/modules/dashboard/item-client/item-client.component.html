@@ -10,11 +10,21 @@
 
     <div class="col-8 normal-cursor">
       <div
+        *ngIf="size > 700"
         [matTooltip]="getClientName()"
         [matTooltipDisabled]="this.getClientName().length < 26"
       >
         {{ getClientName() | slice:0:26 }}
         {{ this.getClientName().length > 26 ? '...' : '' }}
+      </div>
+
+      <div
+        *ngIf="size < 700"
+        [matTooltip]="getClientName()"
+        [matTooltipDisabled]="this.getClientName().length < 23"
+      >
+        {{ getClientName() | slice:0:23 }}
+        {{ this.getClientName().length > 23 ? '...' : '' }}
       </div>
 
       <div class="mt-2 title normal-cursor">

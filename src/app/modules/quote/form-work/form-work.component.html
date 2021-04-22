@@ -1,5 +1,5 @@
-<div *ngIf="!editable && !work.isNew" >
-  <div class="row mb-3">
+<div *ngIf="!editable && !work.isNew">
+  <div class="row mb-3 mobile-not-show">
     <div class="col-3 text-center mt-2">
       {{ work.quantity }} {{ work.measure }}
     </div>
@@ -37,10 +37,66 @@
     </div>
   </div>
 
-  <hr>
+  <mat-card class="mb-4 mobile-show">
+    <div class="row">
+      <div class="col-6 mt-2">
+        <strong>Cantidad</strong>
+      </div>
+
+      <div class="col-6 mt-2">
+        {{ work.quantity }} {{ work.measure }}
+      </div>
+
+      <div class="col-6 mt-2">
+        <strong>Concepto</strong>
+      </div>
+
+      <div class="col-6 mt-2">
+        {{ work.concept }}
+      </div>
+
+      <div class="col-6 mt-2">
+        <strong>Precio Unitario</strong>
+      </div>
+
+      <div class="col-6 mt-3">
+        {{ work.unitPrice | money }}
+      </div>
+
+      <div class="col-6 mt-2">
+        <strong>Importe</strong>
+      </div>
+
+      <div class="col-6 mt-2">
+        {{ work.totalPrice | money }}
+      </div>
+
+      <div class="col-12 text-right mt-4">
+        <button
+          mat-mini-fab
+          [disabled]="disabled"
+          (click)="editable = true"
+        >
+          <em class="mdi mdi-pencil mdi-18px"></em>
+        </button>
+
+        <button
+          mat-mini-fab
+          class="ml-2 mat-mini-fab-error"
+          type="button"
+          [disabled]="disabled"
+          (click)="removeWork.emit()"
+        >
+          <em class="mdi mdi-trash-can mdi-18px"></em>
+        </button>
+      </div>
+    </div>
+  </mat-card>
+
+  <hr class="mobile-not-show">
 </div>
 
-<form *ngIf="editable || work.isNew" [formGroup]="form" (ngSubmit)="save()">
+<form *ngIf="editable || work.isNew" class="mobile-not-show" [formGroup]="form" (ngSubmit)="save()">
   <div class="row mb-3">
     <div class="col-3 text-center">
       <mat-form-field class="w-50" appearance="outline">
@@ -119,4 +175,107 @@
   </div>
 
   <hr>
+</form>
+
+<form *ngIf="editable || work.isNew" class="mobile-show mb-4" [formGroup]="form" (ngSubmit)="save()">
+  <mat-card class="mobile-show">
+    <div class="row">
+      <div class="col-6 mt-4">
+        <strong>Cantidad</strong>
+      </div>
+
+      <div class="col-6 mt-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Cantidad</mat-label>
+          <input
+            matInput
+            required
+            placeholder="1"
+            formControlName="quantity"
+            type="number"
+          >
+        </mat-form-field>
+      </div>
+
+      <div class="col-6 mt-4">
+        <strong>Medida</strong>
+      </div>
+
+      <div class="col-6 mt-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Medida</mat-label>
+          <mat-select formControlName="measure">
+            <mat-option
+              *ngFor="let measure of measures"
+              [value]="measure"
+            >
+              {{ measure }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="col-6 mt-4">
+        <strong>Concepto</strong>
+      </div>
+
+      <div class="col-6 mt-2">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label>Concepto</mat-label>
+          <input
+            matInput
+            placeholder="Tornillos Fantásticos"
+            formControlName="concept"
+            required
+          >
+        </mat-form-field>
+      </div>
+
+      <div class="col-6 mt-4">
+        <strong>Precio Unitario</strong>
+      </div>
+
+      <div class="col-6 mt-3">
+        <mat-form-field class="w-100" appearance="outline" floatLabel="always">
+          <mat-label>Precio Unitario</mat-label>
+          <input
+            matInput
+            appInputMask
+            required
+            placeholder="100"
+            formControlName="unitPrice"
+            [mask]="moneyMask"
+          >
+        </mat-form-field>
+      </div>
+
+      <div class="col-6 mt-2">
+        <strong>Importe</strong>
+      </div>
+
+      <div class="col-6 mt-2">
+        {{ totalPrice | money }}
+      </div>
+
+      <div class="col-12 text-right mt-4">
+        <button
+          mat-mini-fab
+          class="mat-mini-fab-success"
+          [disabled]="disabled"
+        >
+          <em class="mdi mdi-check mdi-18px"></em>
+        </button>
+
+        <button
+          mat-mini-fab
+          class="ml-2 mat-mini-fab-error"
+          type="button"
+          [disabled]="disabled"
+          (click)="onCancel()"
+        >
+          <em class="mdi mdi-close mdi-18px"></em>
+        </button>
+      </div>
+    </div>
+  </mat-card>
 </form>

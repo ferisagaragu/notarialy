@@ -15,12 +15,15 @@ export class ItemQuoteComponent {
   @Input() quote: QuoteModel;
   @Output() onChange: EventEmitter<void>;
 
+  size: number;
+
   constructor(
     private dialog: MatDialog,
     private swal: SweetAlert2Service,
     private quoteService: QuoteService
   ) {
     this.onChange = new EventEmitter<void>();
+    this.size = window.innerWidth;
   }
 
   updateQuote(): void {
@@ -28,6 +31,9 @@ export class ItemQuoteComponent {
       FormQuoteComponent,
       {
         id: 'formQuote',
+        width: window.innerWidth < 576 ? '95%' : '',
+        height: window.innerWidth < 576 ? '95%' : '',
+        maxWidth: window.innerWidth < 576 ? 'none' : '80vw',
         disableClose: true,
         data: this.quote
       }

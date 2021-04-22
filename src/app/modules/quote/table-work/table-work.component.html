@@ -11,23 +11,23 @@
   </div>
 
   <div class="row">
-    <div class="col-3 text-center">
+    <div class="col-3 text-center mobile-not-show">
       <strong>Cantidad</strong>
     </div>
 
-    <div class="col-3 text-center">
+    <div class="col-3 text-center mobile-not-show">
       <strong>Concepto</strong>
     </div>
 
-    <div class="col-2 text-center">
+    <div class="col-2 text-center mobile-not-show">
       <strong>Precio Unitario</strong>
     </div>
 
-    <div class="col-2 text-center">
+    <div class="col-2 text-center mobile-not-show">
       <strong>Importe</strong>
     </div>
 
-    <div class="col-2 text-center">
+    <div class="col-2 text-center mobile-not-show">
       <strong>Acciones</strong>
     </div>
 
@@ -57,12 +57,12 @@
 
     <hr *ngIf="works.length === 0" class="mb-4">
 
-    <div class="col-9 pt-4 text-right">
+    <div class="col-md-9 col-6 pt-4 text-right mobile-text-left">
       <strong>Mano de obra</strong>
     </div>
 
-    <div class="col-3 text-center">
-      <mat-form-field floatLabel="always" appearance="outline">
+    <div class="col-md-3 col-6 text-center">
+      <mat-form-field class="mobile-w-100" floatLabel="always" appearance="outline">
         <mat-label>Mano de obra</mat-label>
 
         <input
@@ -75,11 +75,11 @@
       </mat-form-field>
     </div>
 
-    <div class="col-9 text-right">
+    <div class="col-md-9 col-3 text-right mobile-text-left">
       <strong>Total</strong>
     </div>
 
-    <div class="col-3 text-center">
+    <div class="col-md-3 col-9 text-center mobile-text-right">
       {{ sumTotal() | money }}
     </div>
   </div>
@@ -97,13 +97,13 @@
   </div>
 
   <div
-    class="col-12 text-right"
+    class="text-right w-100"
     [class.mt-4]="showWarning"
     [class.mt-5]="!showWarning"
   >
     <button
       mat-stroked-button
-      class="mr-2"
+      class="mr-2 mobile-not-show"
       color="accent"
       [disabled]="disabled"
       (click)="save(true)"
@@ -111,6 +111,18 @@
       <em *ngIf="loadExport" class="mdi mdi-loading mdi-spin"></em>
       <em *ngIf="!loadExport" class="mdi mdi-file-pdf"></em>
       Guardar y exportar
+    </button>
+
+    <button
+      mat-stroked-button
+      class="mr-2 mobile-show"
+      color="accent"
+      [disabled]="disabled"
+      (click)="save(true)"
+    >
+      <em *ngIf="loadExport" class="mdi mdi-loading mdi-spin"></em>
+      <em *ngIf="!loadExport" class="mdi mdi-file-pdf"></em>
+      Exportar
     </button>
 
     <button

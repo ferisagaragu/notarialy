@@ -178,8 +178,7 @@ export class FormClientComponent implements OnInit {
       address: this.address.formatted,
       lat: this.address.lat,
       lng: this.address.lng
-    }).subscribe(resp => {
-      console.log('si sirve');
+    }).subscribe(_ => {
       this.load = false;
       this.form.enable();
       this.dialog.getDialogById(CLIENT_FORM_DIALOG).close('update');

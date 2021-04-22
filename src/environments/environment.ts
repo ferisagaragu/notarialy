@@ -8,7 +8,8 @@ export const environment: EnvironmentInterface = {
   production: false,
   baseUrl: 'http://10.244.58.54:5000/rest',
   googleMapsUrl: 'https://maps.googleapis.com/maps/api/geocode',
-  logoIconDefault: 'http://localhost:6060/storages/408de3b7-8375-41e0-bfda-921a1c3331d4'
+  logoIconDefault: 'https://firebasestorage.googleapis.com/v0/b/notarialy-c15cf.appspot.com/o/' +
+    'companies%2Fe093e925-fab4-471e-afc4-47646c7e5993.png?alt=media&token=49faca13-050b-4632-bd4d-aa921ad4c544'
 };
 
 /*

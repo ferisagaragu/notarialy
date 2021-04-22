@@ -52,9 +52,11 @@ export class TabQuoteComponent implements OnInit {
     const dialogRef = this.dialog.open(
       StepperQuoteComponent,
       {
-        width: '50%',
-        height: '75%',
-        disableClose: true
+        width: window.innerWidth < 576 ? '100%' : '50%',
+        height: window.innerWidth < 576 ? '100%' : '75%',
+        maxWidth: window.innerWidth < 576 ? 'none' : '80vw',
+        disableClose: true,
+        panelClass: ['full-screen-modal']
       }
     );
 
@@ -176,6 +178,7 @@ export class TabQuoteComponent implements OnInit {
   }
 
   private showFormTelephone(): void {
+    console.log(window.innerWidth)
     const { phoneNumber } = this.sessionService.getUser();
 
     if (!phoneNumber) {
@@ -183,8 +186,8 @@ export class TabQuoteComponent implements OnInit {
         FormTelephoneComponent,
         {
           id: 'formTelephone',
-          width: '30%',
-          height: '285px',
+          width: window.innerWidth < 576 ? '100%' : '30%',
+          height: window.innerWidth < 576 ? '360px' : '285px',
           disableClose: true
         }
       );

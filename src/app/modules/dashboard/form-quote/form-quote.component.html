@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="save()" [class.p-4]="data">
 
-  <mat-form-field *ngIf="data" class="w-50 pr-3" appearance="outline">
+  <mat-form-field *ngIf="data" class="w-50 mobile-w-100 pr-3 mobile-pr-0" appearance="outline">
     <mat-label>Compañía</mat-label>
     <mat-select formControlName="companyUuid">
       <mat-option *ngFor="let company of companies" [value]="company.uuid">
@@ -9,7 +9,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field *ngIf="data" class="w-50" appearance="outline">
+  <mat-form-field *ngIf="data" class="w-50 mobile-w-100" appearance="outline">
     <mat-label>Cliente</mat-label>
     <mat-select formControlName="clientUuid">
       <mat-option *ngFor="let client of clients" [value]="client.uuid">
@@ -18,7 +18,7 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-form-field class="w-50 pr-3" floatLabel="always" appearance="outline">
+  <mat-form-field class="w-50 mobile-w-100 pr-3 mobile-pr-0" floatLabel="always" appearance="outline">
     <mat-label>Mano de obra</mat-label>
 
     <mat-icon matSuffix>
@@ -33,7 +33,7 @@
     >
   </mat-form-field>
 
-  <mat-form-field class="w-50" appearance="outline">
+  <mat-form-field class="w-50 mobile-w-100" appearance="outline">
     <mat-label>Fecha de creación</mat-label>
     <input
       matInput

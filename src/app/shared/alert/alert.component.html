@@ -5,13 +5,13 @@
   [class.alert-warn]="type === 'warn'"
 >
   <div class="row">
-    <div class="col-1 text-center">
+    <div class="col-3 col-md-1 text-center mobile-mt-2">
       <em *ngIf="type === 'error'" class="mdi mdi-alert-octagram-outline mdi-36px"></em>
       <em *ngIf="type === 'info'" class="mdi mdi-alert-circle-outline mdi-36px"></em>
       <em *ngIf="type === 'warn'" class="mdi mdi-alert-outline mdi-36px"></em>
     </div>
 
-    <div class="col-11">
+    <div class="col-9 col-md-11">
       <strong>{{ message }}</strong>
     </div>
   </div>

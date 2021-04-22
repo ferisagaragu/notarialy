@@ -11,7 +11,6 @@
     <input
       type="text"
       placeholder="Selecciona una compañía"
-      aria-label="Number"
       matInput
       formControlName="company"
       [matAutocomplete]="auto"
@@ -30,7 +29,7 @@
 
   <app-input-file formControlName="logoUrl"></app-input-file>
 
-  <mat-form-field class="w-50" appearance="outline">
+  <mat-form-field class="w-50 mobile-w-100" appearance="outline">
     <mat-label>Nombre</mat-label>
     <input
       matInput
@@ -42,7 +41,7 @@
     <mat-error>No puede haber una compañía sin nombre</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="w-50 pr-3" appearance="outline">
+  <mat-form-field class="w-50 mobile-w-100 pr-3 mobile-pr-0" appearance="outline">
     <mat-label>Eslogan</mat-label>
     <input
       matInput
@@ -57,7 +56,7 @@
     </mat-error>
   </mat-form-field>
 
-  <mat-form-field class="w-50" appearance="outline">
+  <mat-form-field class="w-50 mobile-w-100" appearance="outline">
     <mat-label>Titulo</mat-label>
     <input
       matInput

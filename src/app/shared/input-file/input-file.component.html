@@ -1,15 +1,16 @@
-<div class="no-bock w-50 pr-3">
+<div class="no-bock w-50 pr-3 mobile-w-100 mobile-pr-0 mobile-mb-3">
   <div class="row">
-    <div class="col-2 text-center">
+    <div class="col-2 col-md-2 text-center">
       <img
+        class="mobile-mt-1"
         alt="company logo"
         [src]="icon"
       >
     </div>
 
-    <div class="col-10">
+    <div class="col-10 col-md-10">
       <div class="row">
-        <div *ngIf="showCancelButton" class="col-12">
+        <div *ngIf="showCancelButton" class="col-12 col-md-12">
           <div class="no-bock w-100">
             <button
               type="button"
@@ -22,7 +23,7 @@
           </div>
         </div>
 
-        <div *ngIf="!showCancelButton" class="col-12">
+        <div *ngIf="!showCancelButton" class="col-12 col-md-12">
           <div class="no-bock w-100">
             <button
               color="accent"

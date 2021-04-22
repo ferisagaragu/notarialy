@@ -1,0 +1,118 @@
+<div class="mt-5 pl-4 pr-4 pb-4">
+  <mat-card>
+    <form class="p-4"  [formGroup]="form" (ngSubmit)="save()">
+      <div class="row ml-2 mb-3">
+        <label class="mr-3 mt-1">Tipo de cuenta</label>
+
+        <em
+          *ngIf="user.accountType === 'OUTLOOK'"
+          class="mdi mdi-microsoft-outlook mdi-48px microsoft-button"
+        >
+        </em>
+
+        <em
+          *ngIf="user.accountType === 'GMAIL'"
+          class="mdi mdi-google mdi-48px google-button"
+        >
+        </em>
+
+        <em
+          *ngIf="user.accountType === 'DEFAULT'"
+          class="mdi mdi-account mdi-48px default-button"
+        >
+        </em>
+      </div>
+
+      <mat-form-field
+        class="w-100"
+        appearance="outline"
+        matTooltip="
+          El correo electrónico no se puede cambiar, si
+          deseas usar otro diferente puedes iniciar sesión
+          con otra cuenta asociada a ese correo electrónico.
+        "
+      >
+        <mat-label>Correo electrónico</mat-label>
+
+        <input
+          matInput
+          required
+          formControlName="email"
+        >
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Nombre</mat-label>
+
+        <input
+          matInput
+          placeholder="ElctroCopu"
+          formControlName="name"
+          required
+        >
+
+        <mat-error>
+          Es importante que te identifiques con tus clientes
+          por tu nombre real, para que sepan que eres confiable
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Apellido Paterno</mat-label>
+
+        <input
+          matInput
+          placeholder="ElctroCopu"
+          formControlName="surname"
+          required
+        >
+
+        <mat-error>
+          Por que muchas personas pueden tener los mismos nombres
+          es importante registrar tu apellido materno
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Apellido Materno</mat-label>
+
+        <input
+          matInput
+          required
+          placeholder="Aguirre"
+          formControlName="motherSurname"
+        >
+
+        <mat-error>
+          Por que muchas personas pueden tener los mismos apellidos paternos
+          es importante registrar tu apellido materno
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Número Telefónico</mat-label>
+
+        <input
+          matInput
+          appInputMask
+          required
+          placeholder="99-99-99-99-99"
+          formControlName="phoneNumber"
+          autocomplete="off"
+          mask="99-99-99-99-99"
+        >
+
+        <mat-error>
+          Tu número telefónico es importante para
+          que tus clientes puedan llamarte
+        </mat-error>
+      </mat-form-field>
+
+      <div class="text-right">
+        <button mat-stroked-button color="accent">
+          Actualizar
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

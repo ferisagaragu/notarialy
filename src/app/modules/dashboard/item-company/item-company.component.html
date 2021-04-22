@@ -9,20 +9,37 @@
     </div>
 
     <div class="col-8 normal-cursor">
-      <div [matTooltip]="company.name">
+      <div *ngIf="size > 700" [matTooltip]="company.name">
         {{ company.name | slice:0:23 }}
         {{ company.name.length > 23 ? '...' : '' }}
       </div>
 
-      <div class="normal-cursor" [matTooltip]="company.slogan">
+      <div *ngIf="size < 700" [matTooltip]="company.name">
+        {{ company.name | slice:0:20 }}
+        {{ company.name.length > 20 ? '...' : '' }}
+      </div>
+
+      <div *ngIf="size > 700" class="normal-cursor" [matTooltip]="company.slogan">
         {{ company.slogan | slice:0:23 }}
         {{ company.slogan.length > 23 ? '...' : '' }}
       </div>
 
-      <div class="mt-2 title normal-cursor" [matTooltip]="company.title">
+      <div *ngIf="size < 700" class="normal-cursor" [matTooltip]="company.slogan">
+        {{ company.slogan | slice:0:20 }}
+        {{ company.slogan.length > 20 ? '...' : '' }}
+      </div>
+
+      <div *ngIf="size > 700" class="mt-2 title normal-cursor" [matTooltip]="company.title">
         <em>
           {{ company.title | slice:0:23 }}
           {{ company.title.length > 23 ? '...' : '' }}
+        </em>
+      </div>
+
+      <div *ngIf="size < 700" class="mt-2 title normal-cursor" [matTooltip]="company.title">
+        <em>
+          {{ company.title | slice:0:20 }}
+          {{ company.title.length > 20 ? '...' : '' }}
         </em>
       </div>
     </div>

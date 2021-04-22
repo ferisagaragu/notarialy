@@ -8,6 +8,7 @@ export class UserModel {
   phoneNumber: string;
   email: string;
   session: any;
+  accountType: string;
 
   constructor(data: UserModel | any) {
     Object.assign(this, data);

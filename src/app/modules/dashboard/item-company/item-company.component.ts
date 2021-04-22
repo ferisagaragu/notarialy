@@ -14,6 +14,7 @@ export class ItemCompanyComponent {
 
   @Input() company: CompanyModel;
   @Output() onChange: EventEmitter<void>;
+  size: number;
 
   constructor(
     private dialog: MatDialog,
@@ -21,6 +22,7 @@ export class ItemCompanyComponent {
     private companyService: CompanyService
   ) {
     this.onChange = new EventEmitter<void>();
+    this.size = window.innerWidth;
   }
 
   updateCompany(): void {
@@ -30,7 +32,9 @@ export class ItemCompanyComponent {
         id: 'formCompany',
         disableClose: true,
         data: this.company,
-        width: '75%'
+        height: window.innerWidth < 700 ? '70%' : '75%',
+        width: window.innerWidth < 700 ? '95%' : '75%',
+        maxWidth: window.innerWidth < 700 ? 'none' : '80vw'
       }
     );
 
